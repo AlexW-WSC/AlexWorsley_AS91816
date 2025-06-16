@@ -1,86 +1,19 @@
+import world_map
+
+
 player_pos = 16, 2
 player_max_health = 100
-player_health = 97
+player_health = 100
+player_gold = 10
 
 healthbar_ui = ["[          ]","[-         ]","[--        ]","[---       ]","[----      ]","[-----     ]","[------    ]","[-------   ]","[--------  ]","[--------- ]", "[----------]"]
 
 player_alive = True
 
 def StartSequence():
-    return
-
-
-# map index 
-tile_map = {
-    
-    (16, 2): {
-        "Location": "Kingdom Outskirts",
-        "Name": "Grassland",
-        "Description":"You see many cats.",
-        "Type": "Interact",
-        "Interacted": False,
-        "Battle Complete": None,
-        "Reward Obtained": None,
-        "Reward": None,
-        "Reward Amount": None,
-    },
-    
-    (-1,1): {
-        "Location": "Kingdom Outskirts",
-        "Name": "Grassland",
-        "Type": "Interact",
-        "Interacted": False,
-        "Battle Complete": None,
-        "Reward Obtained": None,
-    },
-
-
-
-    (0,1): {
-        "Location": "Kingdom Outskirts",
-        "Name": "Grassland",
-        "Type": "Interact",
-        "Interacted": False,
-        "Battle Complete": None,
-        "Reward Obtained": None,
-    },
-
-    (1,1): {
-        "Location": "Kingdom Outskirts",
-        "Name": "Grassland",
-        "Type": "Interact",
-        "Interacted": False,
-        "Battle Complete": None,
-        "Reward Obtained": None,
-    },
-
-    (-1,0): {
-        "Location": "Kingdom Outskirts",
-        "Name": "Grassland",
-        "Type": "Interact",
-        "Interacted": False,
-        "Battle Complete": None,
-        "Reward Obtained": None,
-    },
-    
-    (0,0): {
-        "Location": "Kingdom Outskirts",
-        "Name": "Grassland",
-        "Type": "Interact",
-        "Interacted": False,
-        "Battle Complete": None,
-        "Reward Obtained": None,
-    },
-    (1,0): {
-        "Location": "Kingdom Outskirts",
-        "Name": "Meow",
-        "Description":"You see many cats.",
-        "Type": "Battle",
-        "Interacted": None,
-        "Battle Complete": False,
-        "Reward Obtained": None,
-    }
-}
+    global player_name
+    player_name = input("What is your name?\n\n").title()
+    ExplorationScreen(*player_pos)
 
 
 
@@ -102,8 +35,8 @@ armour_inventory = {
     "Leather Armour": 24,
     "test armour": 0
 }
-key_item_inventory = {
-    "OrnateKey": 1,
+key_items_inventory = {
+    "Ornate Key": 1,
 }
 
 # description indexes  
@@ -118,8 +51,16 @@ healing_description_index = {
     "Potion": "The humble potion. Doesn't help much, but better than nothing."
 }
 
+armour_description_index = {
+    "Chainmail": "idk 0w0 this is a placeholder, i'm tired"
+}
 
-# more indexes !!!
+key_item_description_index = {
+    "Ornate Key": "An ornate, old key. looks like it would fit in a specific keyhole."
+}
+
+
+# value indexes
 
 weapon_damage_index = {
     "Training Sword": 5,
@@ -127,13 +68,26 @@ weapon_damage_index = {
 
 healing_amount_index = {
     "Potion": 5,
-    "Elixr": 10,
+    "Elixir": 10,
     "Shimmering Potion": 20,
     "Good healing item": 50,
 }
 
+armour_reduction_index = {
+    "Chainmail": 5
+}
+
+
+# Price indexes 
+
+weapon_price_index = {
+    "Training Sword": 10,
+}
+
 equipped_weapon = "Master Sword"
-equipped_armour = "test armour"
+equipped_armour = "Chainmail"
+
+#functions that actually do stuff!!! :0
 
 def EquipWeapon(weapon):
     global equipped_weapon
@@ -144,7 +98,7 @@ def EquipWeapon(weapon):
 
 def EquipArmour(armour):
     global equipped_armour
-    print(f"\nYou have equipped {armour}. Your previous armour was the {equipped_armour}.\n\n———————————————————————————————————————————\n")
+    print(f"\nYou have equipped {armour}. Your previous armour was {equipped_armour}.\n\n———————————————————————————————————————————\n")
     armour_inventory[equipped_armour] += 1
     armour_inventory[armour] -= 1
     equipped_armour = armour
@@ -152,17 +106,25 @@ def EquipArmour(armour):
 def UseHealing(healing_item):
     global player_max_health
     global player_health
-    if player_health + healing_amount_index.get(healing_item) > player_max_health:
+    if player_health == player_max_health:
+        print(f"\nThe {healing_item} will not have any effect! The {healing_item} was not consumed.")
+        HealingMenu()
+    elif player_health + healing_amount_index.get(healing_item) > player_max_health:
         temp = player_health + healing_amount_index.get(healing_item)
         difference = player_max_health - temp
         player_health = player_max_health
         print(f"\nThe {healing_item} healed you to full health. Your health is now {player_health}. (Healed {(healing_amount_index.get(healing_item) + difference)} health)\n\n———————————————————————————————————————————\n")
+        healing_inventory[healing_item] =- 1
         HealingMenu()
     else:
         player_health += healing_amount_index.get(healing_item)
         print(f"\nYou used the {healing_item}. Your health is now {player_health}. (Healed {healing_amount_index.get(healing_item)} health)\n\n———————————————————————————————————————————\n")
-        HealingMenu()
+        healing_inventory[healing_item] =- 1
     
+
+# nested menus 
+
+
 def CheckWeapon(weapon):
     player_action_taken = False
     while player_action_taken == False:
@@ -171,7 +133,7 @@ def CheckWeapon(weapon):
             print("   1. Equip Weapon\n   2. Back to Weapons Menu\n\n———————————————————————————————————————————\n")
             decision = int(input())
         except ValueError:
-            print("Please enter a valid number!")
+            print("Please enter a valid number!\n")
         else:
             if decision == 1:
                 player_action_taken = True
@@ -181,10 +143,11 @@ def CheckWeapon(weapon):
                 player_action_taken = True
                 WeaponsMenu()
             else:
-                print("Please enter a valid number!")
+                print("Please enter a valid number!\n")
                 
 
-        
+
+
 def CheckHealing(healing_item):
     player_action_taken = False
     while player_action_taken == False:
@@ -193,23 +156,61 @@ def CheckHealing(healing_item):
             print("   1. Use Healing Item\n   2. Back to Healing Items Menu\n\n———————————————————————————————————————————\n")
             decision = int(input())
         except ValueError:
-            print("Please enter a valid number!")
+            print("Please enter a valid number!\n")
         else:
             if decision == 1:
                 player_action_taken = True
                 UseHealing(healing_item)
+                HealingMenu()
             elif decision == 2:
                 player_action_taken = True
                 HealingMenu()
             else:
-                print("Please enter a valid number!")
+                print("Please enter a valid number!\n")
             
             
-def CheckArmour():
-    return
+def CheckArmour(armour):
+    player_action_taken = False
+    while player_action_taken == False:
+        try:
+            print(f"\n{armour}: {armour_reduction_index.get(armour)} DEF\n\n“{armour_description_index.get(armour)}”\n")
+            print("   1. Equip Armour\n   2. Back to Armour Menu\n\n———————————————————————————————————————————\n")
+            decision = int(input())
+        except ValueError:
+            print("Please enter a valid number!\n")
+        else: 
+            if decision == 1:
+                player_action_taken = True
+                EquipArmour(armour)
+                ArmourMenu()
+            elif decision == 2:
+                player_action_taken = True
+                ArmourMenu()
+            else:
+                print("Please enter a valid number!\n")
+            
 
-def CheckKeyItem():
-    return
+
+def CheckKeyItem(key_item):
+    player_action_taken = False
+    while player_action_taken == False:
+        try:
+            print(f"\n{key_item}\n\n“{armour_description_index.get(key_item)}”\n")
+            print("   1. Back to Key Item Menu\n\n———————————————————————————————————————————\n")
+            decision = int(input())
+        except ValueError:
+            print("Please enter a valid number!\n")
+        else: 
+            if decision == 1:
+                player_action_taken = True
+                KeyItemsMenu()
+            else:
+                print("Please enter a valid number!\n")
+
+
+
+
+# core menus 
 
 
 
@@ -272,7 +273,7 @@ def HealingMenu():
             if decision == i:
                 player_action_taken = True
                 BagMenu()
-            elif  decision > len(healing_list):
+            elif decision > len(healing_list):
                 print("Please enter a valid number!\n")
             elif healing_amount_list[decision - 1] == 0:
                 print("Please enter a valid number!\n")
@@ -287,10 +288,68 @@ def HealingMenu():
         
 
 def ArmourMenu():
-    return
+    decision = 0
+    player_action_taken = False
+    while player_action_taken == False:
+        try:
+            print("\n3. Armour Menu\n")
+            armour_list = list(armour_inventory)
+            armour_amount_list = list(armour_inventory.values())
+            i = 1
+            for armour in armour_list:
+                if armour_amount_list[armour_list.index(armour)] > 1:
+                    print(f"   {i}. {armour} (x{armour_amount_list[armour_list.index(armour)]})")
+                    i += 1
+                elif armour_amount_list[armour_list.index(armour)] == 1:
+                    print(f"   {i}. {armour}")
+                    i += 1
+            print(f"\n   {i}. Back to Bag Menu\n\n———————————————————————————————————————————\n")
+            decision = int(input())
+        except ValueError:
+            print("Please enter a valid number!\n")
+        else:
+            if decision == i:
+                player_action_taken = True
+                BagMenu()
+            elif decision > len(armour_list):
+                print("Please enter a valid number!\n")
+            elif armour_amount_list[decision - 1] == 0:
+                print("Please enter a valid number!\n")
+            else:
+                for armour in armour_list:
+                    if decision == (armour_list.index(armour)+ 1):
+                        player_action_taken = True 
+                        CheckArmour(armour)
 
 def KeyItemsMenu():
-    return
+    decision = 0
+    player_action_taken = False
+    while player_action_taken == False:
+        try:
+            print("\n4. Key Items Menu\n")
+            key_items_list = list(key_items_inventory)
+            key_items_amount_list = list(key_items_inventory.values())
+            i = 1
+            for key_item in key_items_list:
+                print(f"   {i}. {key_item}")
+                i += 1
+            print(f"\n   {i}. Back to Bag Menu\n\n———————————————————————————————————————————\n")
+            decision = int(input())
+        except ValueError:
+            print("Please enter a valid number!\n")
+        else:
+            if decision == i:
+                player_action_taken = True 
+                BagMenu()
+            elif decision > len(key_items_list):
+                print("Please enter a valid number!\n")
+            elif key_items_amount_list[decision - 1] == 0:
+                print("Please enter a valid number!\n")
+            else:
+                for key_item in key_items_list:
+                    if decision == (key_items_list.index(key_item)+ 1):
+                        player_action_taken = True 
+                        CheckKeyItem(key_item)
 
 def BagMenu():
     decision = 0
@@ -337,22 +396,22 @@ def MovementMenu(x,y):
             south_tile = None
             print(f"\n2. Movement Menu - (X:{x},Y:{y})\n")
             try:
-                print(f"   1. Move East (Positive X), [X:{x+1}, Y:{y}] - “{tile_map.get((x+1,y)).get("Name")}”") 
+                print(f"   1. Move East (Positive X), [X:{x+1}, Y:{y}] - “{world_map.tile_map.get((x+1,y)).get("Name")}”") 
             except AttributeError:
                 print(f"   1. Move East (Positive X), [X:{x+1}, Y:{y}] - “Obstructed”")
                 east_tile = "invalid"
             try:
-                print(f"   2. Move West (Negative X), [X:{x-1}], Y:{y}] - “{tile_map.get((x-1,y)).get("Name")}”") 
+                print(f"   2. Move West (Negative X), [X:{x-1}], Y:{y}] - “{world_map.tile_map.get((x-1,y)).get("Name")}”") 
             except AttributeError:
                 print(f"   2. Move West (Negative X), [X:{x-1}], Y:{y}] - “Obstructed”")
                 west_tile = "invalid"
             try: 
-                print(f"   3. Move North (Positive Y) [X:{x}, Y:{y+1}] - “{tile_map.get((x,y+1)).get("Name")}”") 
+                print(f"   3. Move North (Positive Y) [X:{x}, Y:{y+1}] - “{world_map.tile_map.get((x,y+1)).get("Name")}”") 
             except AttributeError:
                 print(f"   3. Move North (Positive Y) [X:{x}, Y:{y+1}] - “Obstructed”")
                 north_tile = "invalid"
             try: 
-                print(f"   4. Move South (Negative Y) [X:{x}, Y:{y-1}] - “{tile_map.get((x,y-1)).get("Name")}”\n")
+                print(f"   4. Move South (Negative Y) [X:{x}, Y:{y-1}] - “{world_map.tile_map.get((x,y-1)).get("Name")}”\n")
             except AttributeError:
                 print(f"   4. Move South (Negative Y) [X:{x}, Y:{y-1}] - “Obstructed”\n")
             print("   5. Back to Menu\n\n———————————————————————————————————————————\n")
@@ -363,32 +422,32 @@ def MovementMenu(x,y):
         else:
             if decision == 1 and east_tile != "invalid":
                 player_action_taken = True 
-                print(f"\nYou have moved East. [X:{x+1}, Y:{y}] - “{tile_map.get((x+1,y)).get("Name")}”")
+                print(f"\nYou have moved East. [X:{x+1}, Y:{y}] - “{world_map.tile_map.get((x+1,y)).get("Name")}”")
                 player_pos = (x+1, y)
                 ExplorationScreen(*player_pos)
             elif decision == 1 and east_tile == "invalid":
-                print("This tile is obstructed!")
+                print("\nThis tile is obstructed!")
             elif decision == 2 and west_tile != "invalid":
                 player_action_taken = True
-                print(f"\nYou have moved West. [X:{x-1}, Y:{y}] - “{tile_map.get((x-1,y)).get("Name")}”")
+                print(f"\nYou have moved West. [X:{x-1}, Y:{y}] - “{world_map.tile_map.get((x-1,y)).get("Name")}”")
                 player_pos = (x-1, y)
                 ExplorationScreen(*player_pos)
             elif decision == 2 and west_tile == "invalid":
-                print("This tile is obstructed!")
+                print("\nThis tile is obstructed!")
             elif decision == 3 and north_tile != "invalid":
                 player_action_taken = True
-                print(f"\nYou have moved North. [X:{x}, Y:{y+1}] - “{tile_map.get((x,y+1)).get("Name")}”")
+                print(f"\nYou have moved North. [X:{x}, Y:{y+1}] - “{world_map.tile_map.get((x,y+1)).get("Name")}”")
                 player_pos = (x, y+1)
                 ExplorationScreen(*player_pos)
             elif decision == 3 and north_tile == "invalid":
-                print("This tile is obstructed!")
+                print("\nThis tile is obstructed!")
             elif decision == 4 and south_tile != "invalid":
                 player_action_taken = True
-                print(f"\nYou have moved South. [X:{x}, Y:{y-1}] - “{tile_map.get((x,y-1)).get("Name")}")
+                print(f"\nYou have moved South. [X:{x}, Y:{y-1}] - “{world_map.tile_map.get((x,y-1)).get("Name")}")
                 player_pos = (x, y-1)
                 ExplorationScreen(*player_pos)
             elif decision == 4 and south_tile == "invalid":
-                print("This tile is obstructed!")
+                print("\nThis tile is obstructed!")
             elif decision == 5:
                 player_action_taken = True
                 ExplorationScreen(*player_pos)
@@ -397,35 +456,34 @@ def MovementMenu(x,y):
 
 
 def Interaction(x,y):
-    tile_map.get((x,y)).update({"Interacted": True})
+    world_map.tile_map.get((x,y)).update({"Interacted": True})
     print("interaction now true, update this variable you silly")
 
 
 
 def ExplorationScreen(x,y):
-    
     decision = 0
     player_action_taken = False
     while player_action_taken == False:
         try:
-            print(f"\nHero  [—————]  [X:{x}, Y:{y}] - {tile_map.get((x,y)).get("Name")}, {tile_map.get((x,y)).get("Location")}\n\n“{tile_map.get((x,y)).get("Description")}”\n\nWhat would you like to do?\n\n    1. {tile_map.get((x,y)).get("Type")}\n    2. Movement\n    3. Bag\n\n———————————————————————————————————————————\n")
+            print(f"\n{player_name} {player_health}/{player_max_health}HP {player_gold} Gold [X:{x}, Y:{y}] - {world_map.tile_map.get((x,y)).get("Name")}, {world_map.tile_map.get((x,y)).get("Location")}\n\n“{world_map.tile_map.get((x,y)).get("Description")}”\n\nWhat would you like to do?\n\n    1. {world_map.tile_map.get((x,y)).get("Type")}\n    2. Movement\n    3. Bag\n\n———————————————————————————————————————————\n")
             decision = int(input())
         except ValueError:
             print("Please enter a valid number!\n")
         else:
-            if decision == 1 and tile_map.get((x,y)).get("Type") == "Interact":
+            if decision == 1 and world_map.tile_map.get((x,y)).get("Type") == "Interact":
                 Interaction(x,y)
-            elif decision == 1 and tile_map.get((x,y)).get("Type") == "Battle":
-                if tile_map.get((x,y)).get("Battle Complete") == "True":
+            elif decision == 1 and world_map.tile_map.get((x,y)).get("Type") == "Battle":
+                if world_map.tile_map.get((x,y)).get("Battle Complete") == "True":
                     print("You have already completed this battle!")
-                if tile_map.get((x,y)).get("Battle Complete") == "False":
+                if world_map.tile_map.get((x,y)).get("Battle Complete") == "False":
                     # Battle(creature, level)
                     return
-            elif decision == 1 and tile_map.get((x,y)).get("Type") == "Shop":
-                # Shop Menu 
+            elif decision == 1 and world_map.tile_map.get((x,y)).get("Type") == "Shop":
+                # ShopMenu()
                 return
-            elif decision == 1 and tile_map.get((x,y)).get("Type") == "Item":
-                # Item obtained
+            elif decision == 1 and world_map.tile_map.get((x,y)).get("Type") == "Item":
+                # ObtainItem(x,y)
                 return
 
             elif decision == 2:
@@ -439,9 +497,9 @@ def ExplorationScreen(x,y):
 
 
 
-
+# it all runs from calling one beautiful function :3
 StartSequence()
 
-ExplorationScreen(*player_pos)
+
 
 
