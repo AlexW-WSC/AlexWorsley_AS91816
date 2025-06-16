@@ -1,6 +1,6 @@
-player_pos = 1,0
+player_pos = 16, 2
 player_max_health = 100
-player_health = 100
+player_health = 97
 
 healthbar_ui = ["[          ]","[-         ]","[--        ]","[---       ]","[----      ]","[-----     ]","[------    ]","[-------   ]","[--------  ]","[--------- ]", "[----------]"]
 
@@ -13,6 +13,18 @@ def StartSequence():
 # map index 
 tile_map = {
     
+    (16, 2): {
+        "Location": "Kingdom Outskirts",
+        "Name": "Grassland",
+        "Description":"You see many cats.",
+        "Type": "Interact",
+        "Interacted": False,
+        "Battle Complete": None,
+        "Reward Obtained": None,
+        "Reward": None,
+        "Reward Amount": None,
+    },
+    
     (-1,1): {
         "Location": "Kingdom Outskirts",
         "Name": "Grassland",
@@ -21,6 +33,8 @@ tile_map = {
         "Battle Complete": None,
         "Reward Obtained": None,
     },
+
+
 
     (0,1): {
         "Location": "Kingdom Outskirts",
@@ -81,9 +95,12 @@ weapon_inventory = {
 healing_inventory = {
     "Potion": 1,
     "Elixir": 2,
+    "silly potion": 0
 }
 armour_inventory = {
-    "Chainmail": 1
+    "Chainmail": 1,
+    "Leather Armour": 24,
+    "test armour": 0
 }
 key_item_inventory = {
     "OrnateKey": 1,
@@ -97,6 +114,10 @@ weapon_description_index = {
     "Master Sword": "The ultimate blade, forged from a dying star.",
 }
 
+healing_description_index = {
+    "Potion": "The humble potion. Doesn't help much, but better than nothing."
+}
+
 
 # more indexes !!!
 
@@ -104,18 +125,15 @@ weapon_damage_index = {
     "Training Sword": 5,
 }
 
-
-
-
-
-# healing_point_index = {
-#     "Potion": 5,
-#     "Elixr": 10,
-#     "Shimmering Potion": 20,
-#     "Good healing item": 50,
-# }
+healing_amount_index = {
+    "Potion": 5,
+    "Elixr": 10,
+    "Shimmering Potion": 20,
+    "Good healing item": 50,
+}
 
 equipped_weapon = "Master Sword"
+equipped_armour = "test armour"
 
 def EquipWeapon(weapon):
     global equipped_weapon
@@ -123,16 +141,33 @@ def EquipWeapon(weapon):
     weapon_inventory[equipped_weapon] += 1
     weapon_inventory[weapon] -= 1
     equipped_weapon = weapon
-    print(weapon_inventory)
 
 def EquipArmour(armour):
-    return
+    global equipped_armour
+    print(f"\nYou have equipped {armour}. Your previous armour was the {equipped_armour}.\n\n———————————————————————————————————————————\n")
+    armour_inventory[equipped_armour] += 1
+    armour_inventory[armour] -= 1
+    equipped_armour = armour
 
+def UseHealing(healing_item):
+    global player_max_health
+    global player_health
+    if player_health + healing_amount_index.get(healing_item) > player_max_health:
+        temp = player_health + healing_amount_index.get(healing_item)
+        difference = player_max_health - temp
+        player_health = player_max_health
+        print(f"\nThe {healing_item} healed you to full health. Your health is now {player_health}. (Healed {(healing_amount_index.get(healing_item) + difference)} health)\n\n———————————————————————————————————————————\n")
+        HealingMenu()
+    else:
+        player_health += healing_amount_index.get(healing_item)
+        print(f"\nYou used the {healing_item}. Your health is now {player_health}. (Healed {healing_amount_index.get(healing_item)} health)\n\n———————————————————————————————————————————\n")
+        HealingMenu()
+    
 def CheckWeapon(weapon):
-    print(f"\n{weapon}: {weapon_damage_index.get(weapon)} ATK\n\n“{weapon_description_index.get(weapon)}”\n")
     player_action_taken = False
     while player_action_taken == False:
         try:
+            print(f"\n{weapon}: {weapon_damage_index.get(weapon)} ATK\n\n“{weapon_description_index.get(weapon)}”\n")
             print("   1. Equip Weapon\n   2. Back to Weapons Menu\n\n———————————————————————————————————————————\n")
             decision = int(input())
         except ValueError:
@@ -148,11 +183,28 @@ def CheckWeapon(weapon):
             else:
                 print("Please enter a valid number!")
                 
-        
-        
-def CheckHealing():
-    return
 
+        
+def CheckHealing(healing_item):
+    player_action_taken = False
+    while player_action_taken == False:
+        try:
+            print(f"\n{healing_item}: {healing_amount_index.get(healing_item)} HEAL\n\n“{healing_description_index.get(healing_item)}”\n")
+            print("   1. Use Healing Item\n   2. Back to Healing Items Menu\n\n———————————————————————————————————————————\n")
+            decision = int(input())
+        except ValueError:
+            print("Please enter a valid number!")
+        else:
+            if decision == 1:
+                player_action_taken = True
+                UseHealing(healing_item)
+            elif decision == 2:
+                player_action_taken = True
+                HealingMenu()
+            else:
+                print("Please enter a valid number!")
+            
+            
 def CheckArmour():
     return
 
@@ -196,16 +248,40 @@ def WeaponsMenu():
                             CheckWeapon(weapon)
                             
                 
-
 def HealingMenu():
     decision = 0 
     player_action_taken = False
     while player_action_taken == False:
         try:
             print("\n2. Healing Menu\n")
+            healing_list = list(healing_inventory)
+            healing_amount_list = list(healing_inventory.values())
+            i = 1 
+            for healing_item in healing_list:
+                if healing_amount_list[healing_list.index(healing_item)] > 1:
+                    print(f"   {i}. {healing_item} (x{healing_amount_list[healing_list.index(healing_item)]})")
+                    i += 1
+                elif healing_amount_list[healing_list.index(healing_item)] == 1:
+                    print(f"   {i}. {healing_item}")
+                    i += 1
+            print(f"\n   {i}. Back to Bag Menu\n\n———————————————————————————————————————————\n")
+            decision = int(input())
         except ValueError:
             print("Please enter a valid number!\n")
-    return
+        else:
+            if decision == i:
+                player_action_taken = True
+                BagMenu()
+            elif  decision > len(healing_list):
+                print("Please enter a valid number!\n")
+            elif healing_amount_list[decision - 1] == 0:
+                print("Please enter a valid number!\n")
+            else:
+                for healing_item in healing_list:
+                    if decision == (healing_list.index(healing_item)+ 1):
+                        player_action_taken = True 
+                        CheckHealing(healing_item)
+
 
 
         
