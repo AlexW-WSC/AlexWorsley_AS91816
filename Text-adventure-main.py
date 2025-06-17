@@ -1,4 +1,5 @@
 import world_map
+import random
 
 
 player_pos = 16, 2
@@ -21,7 +22,7 @@ def StartSequence():
 
 weapon_inventory = {
     "Training Sword": 1,
-    "Greatsword": 3,
+    "Greatsword": 0,
     "Master Sword": 0,
 }
 
@@ -64,13 +65,14 @@ key_item_description_index = {
 
 weapon_damage_index = {
     "Training Sword": 5,
+    "Greatsword": 10,
 }
 
 healing_amount_index = {
     "Potion": 5,
     "Elixir": 10,
     "Shimmering Potion": 20,
-    "Good healing item": 50,
+    "Mega Pot": 50,
 }
 
 armour_reduction_index = {
@@ -84,10 +86,28 @@ weapon_price_index = {
     "Training Sword": 10,
 }
 
+healing_price_index = {
+    "Potion": 5,
+    "Elixir": 15,
+    "Shimmering Potion": 40,
+    "Mega Pot": 100,
+}
+
+armour_price_index = {
+    "Chainmail": 15
+}
+
 equipped_weapon = "Master Sword"
 equipped_armour = "Chainmail"
 
 #functions that actually do stuff!!! :0
+
+def ShopMenu(x,y):
+    if (x, y) == (18, 2):
+        print("A lowly shopkeeper meets your gaze as you open the door to the dimly-lit hut.\n\n Ah! Another adventurer! Feel free to peruse my lovely, albeit limited, wares.")
+        print(f"  1. Use Healing Item\n   2. Back to Healing Items Menu\n\n———————————————————————————————————————————\n")
+
+
 
 def EquipWeapon(weapon):
     global equipped_weapon
@@ -219,7 +239,7 @@ def WeaponsMenu():
     player_action_taken = False
     while player_action_taken == False:
             try:
-                print("\n1. Weapons Menu\n")
+                print(f"\n1. Weapons Menu: {equipped_weapon} currently equipped\n")
                 weapon_list = list(weapon_inventory)
                 weapon_amount_list = list(weapon_inventory.values())
                 i = 1
@@ -396,17 +416,17 @@ def MovementMenu(x,y):
             south_tile = None
             print(f"\n2. Movement Menu - (X:{x},Y:{y})\n")
             try:
-                print(f"   1. Move East (Positive X), [X:{x+1}, Y:{y}] - “{world_map.tile_map.get((x+1,y)).get("Name")}”") 
+                print(f"   1. Move East (Positive X), [X:{x+1}, Y:{y}] - {world_map.tile_map.get((x+1,y)).get("Type")} Tile: “{world_map.tile_map.get((x+1,y)).get("Name")}”") 
             except AttributeError:
                 print(f"   1. Move East (Positive X), [X:{x+1}, Y:{y}] - “Obstructed”")
                 east_tile = "invalid"
             try:
-                print(f"   2. Move West (Negative X), [X:{x-1}], Y:{y}] - “{world_map.tile_map.get((x-1,y)).get("Name")}”") 
+                print(f"   2. Move West (Negative X), [X:{x-1}], Y:{y}] - {world_map.tile_map.get((x-1,y)).get("Type")} Tile: “{world_map.tile_map.get((x-1,y)).get("Name")}”") 
             except AttributeError:
                 print(f"   2. Move West (Negative X), [X:{x-1}], Y:{y}] - “Obstructed”")
                 west_tile = "invalid"
             try: 
-                print(f"   3. Move North (Positive Y) [X:{x}, Y:{y+1}] - “{world_map.tile_map.get((x,y+1)).get("Name")}”") 
+                print(f"   3. Move North (Positive Y) [X:{x}, Y:{y+1}] - {world_map.tile_map.get((x,y+1)).get("Type")} Tile: “{world_map.tile_map.get((x,y+1)).get("Name")}”") 
             except AttributeError:
                 print(f"   3. Move North (Positive Y) [X:{x}, Y:{y+1}] - “Obstructed”")
                 north_tile = "invalid"
@@ -422,28 +442,28 @@ def MovementMenu(x,y):
         else:
             if decision == 1 and east_tile != "invalid":
                 player_action_taken = True 
-                print(f"\nYou have moved East. [X:{x+1}, Y:{y}] - “{world_map.tile_map.get((x+1,y)).get("Name")}”")
+                print(f"\nYou have moved East. [X:{x+1}, Y:{y}] - {world_map.tile_map.get((x+1,y)).get("Type")} Tile: “{world_map.tile_map.get((x+1,y)).get("Name")}”")
                 player_pos = (x+1, y)
                 ExplorationScreen(*player_pos)
             elif decision == 1 and east_tile == "invalid":
                 print("\nThis tile is obstructed!")
             elif decision == 2 and west_tile != "invalid":
                 player_action_taken = True
-                print(f"\nYou have moved West. [X:{x-1}, Y:{y}] - “{world_map.tile_map.get((x-1,y)).get("Name")}”")
+                print(f"\nYou have moved West. [X:{x-1}, Y:{y}] - {world_map.tile_map.get((x-1,y)).get("Type")} Tile: “{world_map.tile_map.get((x-1,y)).get("Name")}”")
                 player_pos = (x-1, y)
                 ExplorationScreen(*player_pos)
             elif decision == 2 and west_tile == "invalid":
                 print("\nThis tile is obstructed!")
             elif decision == 3 and north_tile != "invalid":
                 player_action_taken = True
-                print(f"\nYou have moved North. [X:{x}, Y:{y+1}] - “{world_map.tile_map.get((x,y+1)).get("Name")}”")
+                print(f"\nYou have moved North. [X:{x}, Y:{y+1}] - {world_map.tile_map.get((x,y+1)).get("Type")} Tile: “{world_map.tile_map.get((x,y+1)).get("Name")}”")
                 player_pos = (x, y+1)
                 ExplorationScreen(*player_pos)
             elif decision == 3 and north_tile == "invalid":
                 print("\nThis tile is obstructed!")
             elif decision == 4 and south_tile != "invalid":
                 player_action_taken = True
-                print(f"\nYou have moved South. [X:{x}, Y:{y-1}] - “{world_map.tile_map.get((x,y-1)).get("Name")}")
+                print(f"\nYou have moved South. [X:{x}, Y:{y-1}] - {world_map.tile_map.get((x,y-1)).get("Type")} Tile: “{world_map.tile_map.get((x,y-1)).get("Name")}")
                 player_pos = (x, y-1)
                 ExplorationScreen(*player_pos)
             elif decision == 4 and south_tile == "invalid":
@@ -466,7 +486,10 @@ def ExplorationScreen(x,y):
     player_action_taken = False
     while player_action_taken == False:
         try:
-            print(f"\n{player_name} {player_health}/{player_max_health}HP {player_gold} Gold [X:{x}, Y:{y}] - {world_map.tile_map.get((x,y)).get("Name")}, {world_map.tile_map.get((x,y)).get("Location")}\n\n“{world_map.tile_map.get((x,y)).get("Description")}”\n\nWhat would you like to do?\n\n    1. {world_map.tile_map.get((x,y)).get("Type")}\n    2. Movement\n    3. Bag\n\n———————————————————————————————————————————\n")
+            if world_map.tile_map.get((x,y)).get("Type") == "Plain":
+                print(f"\n{player_name} {player_health}/{player_max_health}HP {player_gold} Gold [X:{x}, Y:{y}] - {world_map.tile_map.get((x,y)).get("Name")}, {world_map.tile_map.get((x,y)).get("Location")}\n\n“{world_map.tile_map.get((x,y)).get("Description")}”\n\nWhat would you like to do?\n\n    1. Interact (N/A)\n    2. Movement\n    3. Bag\n\n———————————————————————————————————————————\n")
+            else:
+                print(f"\n{player_name} {player_health}/{player_max_health}HP {player_gold} Gold [X:{x}, Y:{y}] - {world_map.tile_map.get((x,y)).get("Name")}, {world_map.tile_map.get((x,y)).get("Location")}\n\n“{world_map.tile_map.get((x,y)).get("Description")}”\n\nWhat would you like to do?\n\n    1. {world_map.tile_map.get((x,y)).get("Type")}\n    2. Movement\n    3. Bag\n\n———————————————————————————————————————————\n")
             decision = int(input())
         except ValueError:
             print("Please enter a valid number!\n")
@@ -480,12 +503,10 @@ def ExplorationScreen(x,y):
                     # Battle(creature, level)
                     return
             elif decision == 1 and world_map.tile_map.get((x,y)).get("Type") == "Shop":
-                # ShopMenu()
+                ShopMenu(x,y)
                 return
-            elif decision == 1 and world_map.tile_map.get((x,y)).get("Type") == "Item":
-                # ObtainItem(x,y)
-                return
-
+            elif decision == 1 and world_map.tile_map.get((x,y)).get("Type") == "Plain":
+                print("There's nothing here!\n")
             elif decision == 2:
                 MovementMenu(x,y)
                 player_action_taken = True
@@ -499,7 +520,4 @@ def ExplorationScreen(x,y):
 
 # it all runs from calling one beautiful function :3
 StartSequence()
-
-
-
 

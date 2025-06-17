@@ -1,71 +1,171 @@
 # map index 
 tile_map = {
     
+    (13, 1): {
+        "Location": "Kingdom Outskirts",
+        "Name": "Grassland",
+        "Description":"You see many cats.",
+        "Type": "Interact",
+        "Interaction Text": "silly grassland yay yay!",
+        "Reward": "Potion",
+        "Reward Amount": 2,
+        "Reward Obtained": False,
+        "Battle Complete": None,
+    },
+    
+    (14, 1): {
+        "Location": "Kingdom Outskirts",
+        "Name": "Grassland",
+        "Description":"aaaaaaa",
+        "Type": "Plain",
+        "Interaction Text": "None",
+        "Reward": None,
+        "Reward Amount": None,
+        "Reward Obtained": None,
+        "Battle Complete": None,
+    },
+
+    (15, 1): {
+        "Location": "Kingdom Outskirts",
+        "Name": "Grassland",
+        "Description":"aaaaaaa",
+        "Type": "Plain",
+        "Interaction Text": "None",
+        "Reward": None,
+        "Reward Amount": None,
+        "Reward Obtained": None,
+        "Battle Complete": None,
+    },
+
+    (16, 1): {
+        "Location": "Kingdom Outskirts",
+        "Name": "Grassland",
+        "Description":"aaaaaaa",
+        "Type": "Plain",
+        "Interaction Text": "None",
+        "Reward": None,
+        "Reward Amount": None,
+        "Reward Obtained": None,
+        "Battle Complete": None,
+    },
+
+    (17, 1): {
+        "Location": "Kingdom Outskirts",
+        "Name": "Grassland",
+        "Description":"aaaaaaa",
+        "Type": "Plain",
+        "Interaction Text": "None",
+        "Reward": None,
+        "Reward Amount": None,
+        "Reward Obtained": None,
+        "Battle Complete": None,
+    },
+    
+    (18, 1): {
+        "Location": "Kingdom Outskirts",
+        "Name": "Grassland",
+        "Description":"aaaaaaa",
+        "Type": "Plain",
+        "Interaction Text": "None",
+        "Reward": None,
+        "Reward Amount": None,
+        "Reward Obtained": None,
+        "Battle Complete": None,
+    },
+
+    (19, 1): {
+        "Location": "Kingdom Outskirts",
+        "Name": "Grassland",
+        "Description":"aaaaaaa",
+        "Type": "Plain",
+        "Interaction Text": "None",
+        "Reward": None,
+        "Reward Amount": None,
+        "Reward Obtained": None,
+        "Battle Complete": None,
+    },
+
+    (13, 2): {
+        "Location": "Kingdom Outskirts",
+        "Name": "Grassland",
+        "Description":"aaaaaaa",
+        "Type": "Plain",
+        "Interaction Text": "None",
+        "Reward": None,
+        "Reward Amount": None,
+        "Reward Obtained": None,
+        "Battle Complete": None,
+    },
+
+    (14, 2): {
+        "Location": "Kingdom Outskirts",
+        "Name": "Grassland",
+        "Description":"aaaaaaa",
+        "Type": "Plain",
+        "Interaction Text": "None",
+        "Reward": None,
+        "Reward Amount": None,
+        "Reward Obtained": None,
+        "Battle Complete": None,
+    },
+
+    (15, 2): {
+        "Location": "Kingdom Outskirts",
+        "Name": "Grassland",
+        "Description":"aaaaaaa",
+        "Type": "Plain",
+        "Interaction Text": "None",
+        "Reward": None,
+        "Reward Amount": None,
+        "Reward Obtained": None,
+        "Battle Complete": None,
+    },
+    
     (16, 2): {
         "Location": "Kingdom Outskirts",
         "Name": "Grassland",
-        "Description":"You see many cats.",
-        "Type": "Interact",
-        "Interacted": False,
-        "Battle Complete": None,
-        "Reward Obtained": None,
+        "Description":"aaaaaaa",
+        "Type": "Plain",
+        "Interaction Text": None,
         "Reward": None,
         "Reward Amount": None,
-    },
-    
-    (-1,1): {
-        "Location": "Kingdom Outskirts",
-        "Name": "Grassland",
-        "Type": "Interact",
-        "Interacted": False,
-        "Battle Complete": None,
         "Reward Obtained": None,
+        "Battle Complete": None,
     },
 
-
-
-    (0,1): {
+    (17, 2): {
         "Location": "Kingdom Outskirts",
         "Name": "Grassland",
-        "Type": "Interact",
-        "Interacted": False,
-        "Battle Complete": None,
+        "Description":"aaaaaaa",
+        "Type": "Plain",
+        "Interaction Text": "None",
+        "Reward": None,
+        "Reward Amount": None,
         "Reward Obtained": None,
+        "Battle Complete": None,
     },
 
-    (1,1): {
+    (18, 2): {
         "Location": "Kingdom Outskirts",
         "Name": "Grassland",
-        "Type": "Interact",
-        "Interacted": False,
-        "Battle Complete": None,
+        "Description":"aaaaaaa",
+        "Type": "Shop",
+        "Interaction Text": "None",
+        "Reward": None,
+        "Reward Amount": None,
         "Reward Obtained": None,
+        "Battle Complete": None,
     },
 
-    (-1,0): {
+    (19, 2): {
         "Location": "Kingdom Outskirts",
         "Name": "Grassland",
+        "Description":"aaaaaaa",
         "Type": "Interact",
-        "Interacted": False,
+        "Interaction Text": "WOw theres a sword here",
+        "Reward": "Greatsword",
+        "Reward Amount": 1,
+        "Reward Obtained": False,
         "Battle Complete": None,
-        "Reward Obtained": None,
     },
-    
-    (0,0): {
-        "Location": "Kingdom Outskirts",
-        "Name": "Grassland",
-        "Type": "Interact",
-        "Interacted": False,
-        "Battle Complete": None,
-        "Reward Obtained": None,
-    },
-    (1,0): {
-        "Location": "Kingdom Outskirts",
-        "Name": "Meow",
-        "Description":"You see many cats.",
-        "Type": "Battle",
-        "Interacted": None,
-        "Battle Complete": False,
-        "Reward Obtained": None,
-    }
 }
