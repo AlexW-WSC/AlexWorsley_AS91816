@@ -102,10 +102,8 @@ equipped_armour = "Chainmail"
 
 #functions that actually do stuff!!! :0
 
-def ShopMenu(x,y):
-    if (x, y) == (18, 2):
-        print("A lowly shopkeeper meets your gaze as you open the door to the dimly-lit hut.\n\n Ah! Another adventurer! Feel free to peruse my lovely, albeit limited, wares.")
-        print(f"  1. Use Healing Item\n   2. Back to Healing Items Menu\n\n———————————————————————————————————————————\n")
+
+    
 
 
 
@@ -232,7 +230,18 @@ def CheckKeyItem(key_item):
 
 # core menus 
 
-
+# def ShopMenu(x,y):
+#     decision = 0
+#     player_action_taken = False
+#     while player_action_taken == False:
+#         try:
+#             print(f"{world_map.tile_map.get((x,y)).get("Name")}: Shop Menu")
+#             for item in world_map.tile_map.get((x,y)).get("Shop Contents"):
+#                 print(f"{item}: ")
+#         except ValueError:
+#             print("Please enter a valid number!")
+    
+    
 
 def WeaponsMenu():
     decision = 0
@@ -487,26 +496,26 @@ def ExplorationScreen(x,y):
     while player_action_taken == False:
         try:
             if world_map.tile_map.get((x,y)).get("Type") == "Plain":
-                print(f"\n{player_name} {player_health}/{player_max_health}HP {player_gold} Gold [X:{x}, Y:{y}] - {world_map.tile_map.get((x,y)).get("Name")}, {world_map.tile_map.get((x,y)).get("Location")}\n\n“{world_map.tile_map.get((x,y)).get("Description")}”\n\nWhat would you like to do?\n\n    1. Interact (N/A)\n    2. Movement\n    3. Bag\n\n———————————————————————————————————————————\n")
+                print(f"\n{player_name} {player_health}/{player_max_health}HP {player_gold} Gold [X:{x}, Y:{y}] - {world_map.tile_map.get((x,y)).get("Name")}, {world_map.tile_map.get((x,y)).get("Location")}\n\n“{world_map.tile_map.get((x,y)).get("Description")}”\n\nWhat would you like to do?\n\n    1. No Option Availiable\n    2. Movement\n    3. Bag\n\n———————————————————————————————————————————\n")
             else:
                 print(f"\n{player_name} {player_health}/{player_max_health}HP {player_gold} Gold [X:{x}, Y:{y}] - {world_map.tile_map.get((x,y)).get("Name")}, {world_map.tile_map.get((x,y)).get("Location")}\n\n“{world_map.tile_map.get((x,y)).get("Description")}”\n\nWhat would you like to do?\n\n    1. {world_map.tile_map.get((x,y)).get("Type")}\n    2. Movement\n    3. Bag\n\n———————————————————————————————————————————\n")
             decision = int(input())
         except ValueError:
-            print("Please enter a valid number!\n")
+            print("\nPlease enter a valid number!\n")
         else:
             if decision == 1 and world_map.tile_map.get((x,y)).get("Type") == "Interact":
                 Interaction(x,y)
             elif decision == 1 and world_map.tile_map.get((x,y)).get("Type") == "Battle":
                 if world_map.tile_map.get((x,y)).get("Battle Complete") == "True":
-                    print("You have already completed this battle!")
+                    print("\nYou have already completed this battle!\n")
                 if world_map.tile_map.get((x,y)).get("Battle Complete") == "False":
                     # Battle(creature, level)
                     return
             elif decision == 1 and world_map.tile_map.get((x,y)).get("Type") == "Shop":
-                ShopMenu(x,y)
+                # ShopMenu(x,y)
                 return
             elif decision == 1 and world_map.tile_map.get((x,y)).get("Type") == "Plain":
-                print("There's nothing here!\n")
+                print("\nPlease enter a valid number!\n")
             elif decision == 2:
                 MovementMenu(x,y)
                 player_action_taken = True
@@ -514,7 +523,7 @@ def ExplorationScreen(x,y):
                 BagMenu()
                 player_action_taken = True
             else:
-                print("Please enter a valid number!\n")
+                print("\nPlease enter a valid number!\n")
 
 
 

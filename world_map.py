@@ -10,7 +10,6 @@ tile_map = {
         "Reward": "Potion",
         "Reward Amount": 2,
         "Reward Obtained": False,
-        "Battle Complete": None,
     },
     
     (14, 1): {
@@ -18,11 +17,6 @@ tile_map = {
         "Name": "Grassland",
         "Description":"aaaaaaa",
         "Type": "Plain",
-        "Interaction Text": "None",
-        "Reward": None,
-        "Reward Amount": None,
-        "Reward Obtained": None,
-        "Battle Complete": None,
     },
 
     (15, 1): {
@@ -30,11 +24,6 @@ tile_map = {
         "Name": "Grassland",
         "Description":"aaaaaaa",
         "Type": "Plain",
-        "Interaction Text": "None",
-        "Reward": None,
-        "Reward Amount": None,
-        "Reward Obtained": None,
-        "Battle Complete": None,
     },
 
     (16, 1): {
@@ -42,11 +31,6 @@ tile_map = {
         "Name": "Grassland",
         "Description":"aaaaaaa",
         "Type": "Plain",
-        "Interaction Text": "None",
-        "Reward": None,
-        "Reward Amount": None,
-        "Reward Obtained": None,
-        "Battle Complete": None,
     },
 
     (17, 1): {
@@ -54,11 +38,6 @@ tile_map = {
         "Name": "Grassland",
         "Description":"aaaaaaa",
         "Type": "Plain",
-        "Interaction Text": "None",
-        "Reward": None,
-        "Reward Amount": None,
-        "Reward Obtained": None,
-        "Battle Complete": None,
     },
     
     (18, 1): {
@@ -66,11 +45,6 @@ tile_map = {
         "Name": "Grassland",
         "Description":"aaaaaaa",
         "Type": "Plain",
-        "Interaction Text": "None",
-        "Reward": None,
-        "Reward Amount": None,
-        "Reward Obtained": None,
-        "Battle Complete": None,
     },
 
     (19, 1): {
@@ -78,11 +52,6 @@ tile_map = {
         "Name": "Grassland",
         "Description":"aaaaaaa",
         "Type": "Plain",
-        "Interaction Text": "None",
-        "Reward": None,
-        "Reward Amount": None,
-        "Reward Obtained": None,
-        "Battle Complete": None,
     },
 
     (13, 2): {
@@ -90,11 +59,6 @@ tile_map = {
         "Name": "Grassland",
         "Description":"aaaaaaa",
         "Type": "Plain",
-        "Interaction Text": "None",
-        "Reward": None,
-        "Reward Amount": None,
-        "Reward Obtained": None,
-        "Battle Complete": None,
     },
 
     (14, 2): {
@@ -102,11 +66,6 @@ tile_map = {
         "Name": "Grassland",
         "Description":"aaaaaaa",
         "Type": "Plain",
-        "Interaction Text": "None",
-        "Reward": None,
-        "Reward Amount": None,
-        "Reward Obtained": None,
-        "Battle Complete": None,
     },
 
     (15, 2): {
@@ -114,11 +73,6 @@ tile_map = {
         "Name": "Grassland",
         "Description":"aaaaaaa",
         "Type": "Plain",
-        "Interaction Text": "None",
-        "Reward": None,
-        "Reward Amount": None,
-        "Reward Obtained": None,
-        "Battle Complete": None,
     },
     
     (16, 2): {
@@ -126,11 +80,6 @@ tile_map = {
         "Name": "Grassland",
         "Description":"aaaaaaa",
         "Type": "Plain",
-        "Interaction Text": None,
-        "Reward": None,
-        "Reward Amount": None,
-        "Reward Obtained": None,
-        "Battle Complete": None,
     },
 
     (17, 2): {
@@ -138,23 +87,14 @@ tile_map = {
         "Name": "Grassland",
         "Description":"aaaaaaa",
         "Type": "Plain",
-        "Interaction Text": "None",
-        "Reward": None,
-        "Reward Amount": None,
-        "Reward Obtained": None,
-        "Battle Complete": None,
     },
 
     (18, 2): {
         "Location": "Kingdom Outskirts",
-        "Name": "Grassland",
+        "Name": "Small Abode",
         "Description":"aaaaaaa",
         "Type": "Shop",
-        "Interaction Text": "None",
-        "Reward": None,
-        "Reward Amount": None,
-        "Reward Obtained": None,
-        "Battle Complete": None,
+        "Shop Contents": ["Potion", "Elixir"]
     },
 
     (19, 2): {
@@ -166,6 +106,5 @@ tile_map = {
         "Reward": "Greatsword",
         "Reward Amount": 1,
         "Reward Obtained": False,
-        "Battle Complete": None,
     },
 }
