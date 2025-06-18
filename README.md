@@ -4,6 +4,8 @@
 DISCLAIMER: This program does not store data on the web or on your device. 
 
 
+Most menus work, some do not. There is no battle system coded yet. The tile-map has barely been made, but you can move around a little bit. 
+
 
 
 
