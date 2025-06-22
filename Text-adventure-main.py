@@ -9,6 +9,7 @@ player_gold = 10
 
 player_alive = True
 
+# Start and ending sequences for the game 
 def StartSequence():
     global player_name
     player_name = input("What is your name?\n\n").title()
@@ -22,84 +23,121 @@ def EndingSequence(Ending):
 # inventory indexes 
 
 weapon_inventory = {
-    "Training Sword": 1,
-    "Greatsword": 0,
-    "Master Sword": 0,
+    "Training Sword": 0,   # Kingdom Outskirts
+    "Thornblade": 0,   # Verdant Forest
+    "Crystal Dagger": 0,   # Shimmering Cave
+    "Shard Of Glass": 0,   # The Desert
+    "Twin Daggers": 0,   # Howling Cliffs
 }
 
 healing_inventory = {
-    "Potion": 1,
-    "Elixir": 2,
-    "silly potion": 0
+    "Pocket Spell Jar": 0,   # Kingdom Outskirts
+    "Elixir": 0,   # Verdant Forest
+    "Shimmering Potion": 0,   # Shimmering Cave
+    "Tarnished Locket": 0,   # The Desert
+    "Lightning Brew": 0,   # Howling Cliffs
 }
 armour_inventory = {
-    "Chainmail": 1,
-    "Leather Armour": 24,
-    "test armour": 0
+    "Leather Armour": 0,    # Kingdom Outskirts
+    "Chainmail": 0,   # Verdant Forest
+    "Unusual Cloak": 0,   # Shimmering Cave
+    "Sandstorm Gear": 0,   # The Desert
+    "Cult Robes": 0,   # Howling Cliffs
 }
 key_items_inventory = {
-    "Ornate Key": 1,
+    "Sacred Sigil Of Flame": 0,   # The Desert
+    "Ancient Key": 0,   # Howling Cliffs 
 }
 
 # description indexes  
 
 weapon_description_index = {
-    "Training Sword": "A basic training sword. There were hundreds of these things lying around your hometown.",
-    "Greatsword": "An impressive, heavy blade with significant power.", 
-    "Master Sword": "The ultimate blade, forged from a dying star.",
+    "Training Sword": "A basic training sword. There were hundreds of these things lying around your hometown. Enough to protect yourself, but not much else.",
+    "Thornblade": "A blade uprooted from a bed of thorns. Effective, but the thorns wrapped around the handle certainly make it difficult to use.",
+    "Crystal Dagger": "A sharp, crystalline dagger which sparkles brightly.", 
+    "Shard Of Glass": "A shard of glass from a an ancient artefact. Mirages of riches can be seen in its reflection.",
+    "Twin Daggers": "Sometimes you think you can hear these daggers whispering to each other.",
+    
 }
 
 healing_description_index = {
-    "Potion": "The humble potion. Doesn't help much, but better than nothing."
+    "Pocket Spell Jar": "Filled with an assortment of bright herbs. The cork stopper has melted over the jar.",
+    "Elixir": "An elixir that was said to bring eternal youth. Tastes nice.",
+    "Shimmering Potion": "Swirling, bright purple liquid is visible despite the potion's dark, dusty exterior. You question whether this would be a great thing to drink.",
+    "Tarnished Locket": "A locket with a faded photograph of someone you do not recognise.",  
+    "Lightning Brew": "An incredibly strong ale. It sparks as it fizzes.",
 }
 
 armour_description_index = {
-    "Chainmail": "idk 0w0 this is a placeholder, i'm tired"
+    "Leather Armour": "A comfortable, well-made set of leather armour.",   
+    "Chainmail": "A heavier armour set which makes you feel sluggish.",   
+    "Unusual Cloak": "This cloak's fibers feel very.. unique. You have heard rumours about cloaks forged from ancient mythological creatures, and you wonder if this could be one of them.",  
+    "Sandstorm Gear": "Gear fit for a sandstorm, with goggles and covered clothes. Seems strangely high-tech. Faint whirring sounds can be heard from the goggles.",
+    "Cult Robes": "Robes emanating an otherworldly power. What on earth happened up in these cliffs?", 
 }
 
 key_item_description_index = {
-    "Ornate Key": "An ornate, old key. looks like it would fit in a specific keyhole."
+    "Sacred Sigil Of Flame": "Inscribed with the words 'Sigil of Flame'. Despite being in the middle of a desert, it is still in perfect condition.",
+    "Ancient Key": "An ancient, heavy key. It feels very, very familiar."
+
 }
 
 
-# value indexes
+# Value indexes
 
 weapon_damage_index = {
-    "Training Sword": 5,
-    "Greatsword": 10,
-    "Master Sword": 20,
+    "Training Sword": 5,   # Kingdom Outskirts
+    "Thornblade": 8,   # Verdant Forest
+    "Crystal Dagger": 12,   # Shimmering Cave
+    "Shard Of Glass": 14,   # The Desert
+    "Twin Daggers": 18,   # Howling Cliffs
 }
 
 healing_amount_index = {
-    "Potion": 5,
-    "Elixir": 10,
-    "Shimmering Potion": 20,
-    "Mega Pot": 50,
+    "Pocket Spell Jar": 5,   # Kingdom Outskirts
+    "Elixir": 10,   # Verdant Forest
+    "Shimmering Potion": 20,   # Shimmering Cave
+    "Tarnished Locket": 50,   # The Desert
+    "Full Heal": 100,   # Howling Cliffs
 }
 
 armour_reduction_index = {
-    "Chainmail": 5
+    "Leather Armour": 2,    # Kingdom Outskirts
+    "Chainmail": 4,   # Verdant Forest
+    "Unusual Cloak": 6,   # Shimmering Cave
+    "Sandstorm Gear": 8,   # The Desert
+    "Cult Robes": 10,   # Howling Cliffs
 }
 
 
 # Price index
+
 weapon_price_index = {
-    "Training Sword", 10
+    "Training Sword": 10,  
+    "Thornblade": 25,   # Verdant Forest
+    "Crystal Dagger": 50,   # Shimmering Cave
+    "Shard Of Glass": 70,   # The Desert
+    "Twin Daggers": 100,   # Howling Cliffs
 }
 
 healing_price_index = {
-    "Potion": 5,
-    "Elixir": 15,
-    "Shimmering Potion": 40,
-    "Mega Pot": 100,
+    "Pocket Spell Jar": 5,   # Kingdom Outskirts
+    "Elixir": 12,   # Verdant Forest
+    "Shimmering Potion": 25,   # Shimmering Cave
+    "Tarnished Locket": 40,   # The Desert
+    "Full Heal": 100,   # Howling Cliffs
 }
 
 armour_price_index = {
-    "Chainmail": 15
+    "Leather Armour": 15,    # Kingdom Outskirts
+    "Chainmail": 35,   # Verdant Forest
+    "Unusual Cloak": 60,   # Shimmering Cave
+    "Sandstorm Gear": 80,   # The Desert
+    "Cult Robes": 110,   # Howling Cliffs
 }
 
 equipped_weapon = "Training Sword"
-equipped_armour = "Chainmail"
+equipped_armour = "Leather Armour"
 
 # Battle System dictionaries 
 
@@ -115,7 +153,6 @@ monster_index = {
             "Min Health": 10,
             "Accuracy": 95,
         },
-
         "Wolf": {
             "Max Damage": 11,
             "Min Damage": 4,
@@ -124,14 +161,109 @@ monster_index = {
             "Accuracy": 70,
         }
     },
+    "Verdant Forest": {
+        "Forest Sprite": {
+            "Max Damage": 8,
+            "Min Damage": 4,
+            "Max Health": 22,
+            "Min Health": 12,
+            "Accuracy": 90,
+        },
+        "Violent Sapling": {
+            "Max Damage": 11,
+            "Min Damage": 6,
+            "Max Health": 28,
+            "Min Health": 18,
+            "Accuracy": 65,
+        },
+        "Poison Toad": {
+            "Max Damage": 9,
+            "Min Damage": 3,
+            "Max Health": 20,
+            "Min Health": 10,
+            "Accuracy": 75,
+        }
+    },
+    "Shimmering Cave": {
+        "Crystal Golem": {
+            "Max Damage": 15,
+            "Min Damage": 9,
+            "Max Health": 45,
+            "Min Health": 30,
+            "Accuracy": 60,
+        },
+        "Echo Bat": {
+            "Max Damage": 11,
+            "Min Damage": 5,
+            "Max Health": 22,
+            "Min Health": 14,
+            "Accuracy": 85,
+        },
+        "Wisp": {
+            "Max Damage": 12,
+            "Min Damage": 7,
+            "Max Health": 28,
+            "Min Health": 16,
+            "Accuracy": 80,
+        }
+    },
+    "The Desert": {
+        "Sandworm": {
+            "Max Damage": 16,
+            "Min Damage": 10,
+            "Max Health": 40,
+            "Min Health": 25,
+            "Accuracy": 70,
+        },
+        "Scorch Beetle": {
+            "Max Damage": 13,
+            "Min Damage": 6,
+            "Max Health": 26,
+            "Min Health": 15,
+            "Accuracy": 75,
+        },
+        "Dust Phantom": {
+            "Max Damage": 14,
+            "Min Damage": 8,
+            "Max Health": 32,
+            "Min Health": 20,
+            "Accuracy": 85,
+        }
+    },
+    "Howling Cliffs": {
+        "Harpy": {
+            "Max Damage": 18,
+            "Min Damage": 10,
+            "Max Health": 36,
+            "Min Health": 22,
+            "Accuracy": 90,
+        },
+        "Cliff Stalker": {
+            "Max Damage": 17,
+            "Min Damage": 9,
+            "Max Health": 30,
+            "Min Health": 20,
+            "Accuracy": 95,
+        },
+        "Storm Revenant": {
+            "Max Damage": 20,
+            "Min Damage": 12,
+            "Max Health": 48,
+            "Min Health": 30,
+            "Accuracy": 85,
+        }
+    }
 }
 
 
 #functions that actually do stuff!!! :0
 
+
+# Equips weapon/armour
 def EquipWeapon(weapon):
     global equipped_weapon
     print(f"\nYou have equipped {weapon}. Your previous weapon was the {equipped_weapon}.\n\n———————————————————————————————————————————\n")
+    # Adds previous weapon to inventory and removes newly equipped weapon
     weapon_inventory[equipped_weapon] += 1
     weapon_inventory[weapon] -= 1
     equipped_weapon = weapon
@@ -139,6 +271,7 @@ def EquipWeapon(weapon):
 def EquipArmour(armour):
     global equipped_armour
     print(f"\nYou have equipped {armour}. Your previous armour was {equipped_armour}.\n\n———————————————————————————————————————————\n")
+    # Adds previous armour to inventory and removes newly equipped armour
     armour_inventory[equipped_armour] += 1
     armour_inventory[armour] -= 1
     equipped_armour = armour
@@ -146,9 +279,11 @@ def EquipArmour(armour):
 def UseHealing(healing_item):
     global player_max_health
     global player_health
+    # Checks first to see fi the player is at full health, not wasting a potion.
     if player_health == player_max_health:
         print(f"\nThe {healing_item} will not have any effect! The {healing_item} was not consumed.")
         HealingMenu()
+    # Then checks if the potion will go over full health, to handle this case
     elif player_health + healing_amount_index.get(healing_item) > player_max_health:
         temp = player_health + healing_amount_index.get(healing_item)
         difference = player_max_health - temp
@@ -156,14 +291,14 @@ def UseHealing(healing_item):
         print(f"\nThe {healing_item} healed you to full health. Your health is now {player_health}. (Healed {(healing_amount_index.get(healing_item) + difference)} health)\n\n———————————————————————————————————————————\n")
         healing_inventory[healing_item] -= 1
         HealingMenu()
+    # Otherwise, just add health back to the player
     else:
         player_health += healing_amount_index.get(healing_item)
         print(f"\nYou used the {healing_item}. Your health is now {player_health}. (Healed {healing_amount_index.get(healing_item)} health)\n\n———————————————————————————————————————————\n")
         healing_inventory[healing_item] -= 1
     
 
-# nested menus 
-
+# Check Items - logic for equipping to be handled in a different function
 
 def CheckWeapon(weapon):
     player_action_taken = False
@@ -230,7 +365,7 @@ def CheckArmour(armour):
                 print("Please enter a valid number!\n")
             
 
-
+# Cannot equip/do anything with key items, so display a slightly different menu with no equip/use option
 def CheckKeyItem(key_item):
     player_action_taken = False
     while player_action_taken == False:
@@ -250,7 +385,7 @@ def CheckKeyItem(key_item):
 
 
 
-# core menus 
+# Situatonal Shop Menu 
 
 def ShopMenu(x,y):
     global player_gold
@@ -260,6 +395,7 @@ def ShopMenu(x,y):
         try:
             print(f"{world_map.tile_map.get((x,y)).get("Name")}: Shop Menu - {player_gold} Gold\n")
             i = 1
+            # Get the shop contents based on postion and display them in a list
             for item in world_map.tile_map.get((x,y)).get("Shop Contents"):
                 if item in weapon_price_index:
                     print(f"   {i}. {item}: {weapon_price_index.get(item)} Gold")
@@ -275,15 +411,20 @@ def ShopMenu(x,y):
         except ValueError:
             print("Please enter a valid number!\n")
         else:
+            # If the decision is the last number, it is the 'back' option. Send the player back to menu.
             if decision == i:
                 player_action_taken = True
                 ExplorationScreen(x,y)
+            # Checking for boundary cases
             elif decision > len(world_map.tile_map.get((x,y)).get("Shop Contents")):
                     print("Please enter a valid number!\n")
+            # Attempt to buy item
             else:
                  for item in world_map.tile_map.get((x,y)).get("Shop Contents"):
                     if decision == (world_map.tile_map.get((x,y)).get("Shop Contents").index(item) + 1):
+                        # These shouldnt be in separate dictionaries, but because they are, check through all of them for the item
                         if item in weapon_price_index:
+                            # Check if player has enough gold 
                             if player_gold - weapon_price_index.get(item) < 0:
                                 player_action_taken = True
                                 print(f"You do not have enough money! This item costs {weapon_price_index.get(item)} Gold but you only have {player_gold} Gold!\n")
@@ -314,12 +455,7 @@ def ShopMenu(x,y):
                                 print(f"You have purchased the {item}, which cost {armour_price_index.get(item)} Gold. Your new balance is {player_gold} Gold.\n")
                                 ShopMenu(x,y)
 
-                        
-                        
-            
-
-    
-    
+# Core Menus inside Bag menu
 
 def WeaponsMenu():
     decision = 0
@@ -327,9 +463,11 @@ def WeaponsMenu():
     while player_action_taken == False:
             try:
                 print(f"\n1. Weapons Menu: {equipped_weapon} currently equipped\n")
+                # Makes weapon inventory dict into a list so it can be displayed 
                 weapon_list = list(weapon_inventory)
                 weapon_amount_list = list(weapon_inventory.values())
                 i = 1
+                # Prints out all weapons in list (Format differently based on how many are in inventory)
                 for weapon in weapon_list:
                         if weapon_amount_list[weapon_list.index(weapon)] > 1:
                             print(f"   {i}. {weapon} (x{weapon_amount_list[weapon_list.index(weapon)]})")
@@ -339,12 +477,15 @@ def WeaponsMenu():
                             i += 1
                 print(f"\n   {i}.  Back to Bag Menu\n\n———————————————————————————————————————————\n")
                 decision = int(input())
+            # Handle cases where a number is not entered 
             except ValueError: 
                 print("Please enter a valid number!\n")
+            # If it does not fail, then the else can run
             else:
                 if decision == i:
                     player_action_taken = True
                     BagMenu()
+                # Bounary case for a number outside of the list
                 elif decision > len(weapon_list):
                     print("Please enter a valid number!\n")
                 elif weapon_amount_list[decision - 1] == 0:
@@ -355,7 +496,8 @@ def WeaponsMenu():
                             player_action_taken = True
                             CheckWeapon(weapon)
                             
-                
+# Identical to weapons menu
+
 def HealingMenu():
     decision = 0 
     player_action_taken = False
@@ -392,7 +534,7 @@ def HealingMenu():
 
 
 
-        
+# Identical to weapons menu     
 
 def ArmourMenu():
     decision = 0
@@ -428,6 +570,10 @@ def ArmourMenu():
                         player_action_taken = True 
                         CheckArmour(armour)
 
+
+
+# Identical to weapons menu
+
 def KeyItemsMenu():
     decision = 0
     player_action_taken = False
@@ -458,6 +604,8 @@ def KeyItemsMenu():
                         player_action_taken = True 
                         CheckKeyItem(key_item)
 
+
+# Basic bag menu, used to look at any pocket of the bag. Same logic as other menus.
 def BagMenu():
     decision = 0
     player_action_taken = False
@@ -490,81 +638,92 @@ def BagMenu():
 
 
 
-
+# Movement menu for the movement systems.
 def MovementMenu(x,y):
     global player_pos
     decision = 0
     player_action_taken = False
-    while player_action_taken == False: 
-        try:
-            east_tile = None
-            west_tile = None
-            north_tile = None 
-            south_tile = None
-            print(f"\n2. Movement Menu - (X:{x},Y:{y})\n")
+    # Checks if the tile is uncompleted and a battle tile, denying movement if so
+    if world_map.tile_map.get((x,y)).get("Type") == "Battle" and world_map.tile_map.get((x,y)).get("Battle Complete") == False:
+        print("\nYou cannot move from an uncompleted Battle Tile!")
+        ExplorationScreen(x,y)
+    else:
+        while player_action_taken == False: 
             try:
-                print(f"   1. Move East (Positive X), [X:{x+1}, Y:{y}] - {world_map.tile_map.get((x+1,y)).get("Type")} Tile: “{world_map.tile_map.get((x+1,y)).get("Name")}”") 
-            except AttributeError:
-                print(f"   1. Move East (Positive X), [X:{x+1}, Y:{y}] - “Obstructed”")
-                east_tile = "invalid"
-            try:
-                print(f"   2. Move West (Negative X), [X:{x-1}], Y:{y}] - {world_map.tile_map.get((x-1,y)).get("Type")} Tile: “{world_map.tile_map.get((x-1,y)).get("Name")}”") 
-            except AttributeError:
-                print(f"   2. Move West (Negative X), [X:{x-1}], Y:{y}] - “Obstructed”")
-                west_tile = "invalid"
-            try: 
-                print(f"   3. Move North (Positive Y) [X:{x}, Y:{y+1}] - {world_map.tile_map.get((x,y+1)).get("Type")} Tile: “{world_map.tile_map.get((x,y+1)).get("Name")}”") 
-            except AttributeError:
-                print(f"   3. Move North (Positive Y) [X:{x}, Y:{y+1}] - “Obstructed”")
-                north_tile = "invalid"
-            try: 
-                print(f"   4. Move South (Negative Y) [X:{x}, Y:{y-1}] - “{world_map.tile_map.get((x,y-1)).get("Name")}”\n")
-            except AttributeError:
-                print(f"   4. Move South (Negative Y) [X:{x}, Y:{y-1}] - “Obstructed”\n")
-            print("   5. Back to Menu\n\n———————————————————————————————————————————\n")
-            decision = int(input())
+                # Due to attribute errors, these are all separate try blocks
+                # Variables for determining tile eiligibility
+                east_tile = None
+                west_tile = None
+                north_tile = None 
+                south_tile = None
+                print(f"\n2. Movement Menu - (X:{x},Y:{y})\n")
+                
+                try:
+                    print(f"   1. Move East (Positive X), [X:{x+1}, Y:{y}] - {world_map.tile_map.get((x+1,y)).get("Type")} Tile: “{world_map.tile_map.get((x+1,y)).get("Name")}”") 
+                except AttributeError:
+                    print(f"   1. Move East (Positive X), [X:{x+1}, Y:{y}] - “Obstructed”")
+                    east_tile = "invalid"
+                try:
+                    print(f"   2. Move West (Negative X), [X:{x-1}], Y:{y}] - {world_map.tile_map.get((x-1,y)).get("Type")} Tile: “{world_map.tile_map.get((x-1,y)).get("Name")}”") 
+                except AttributeError:
+                    print(f"   2. Move West (Negative X), [X:{x-1}], Y:{y}] - “Obstructed”")
+                    west_tile = "invalid"
+                try: 
+                    print(f"   3. Move North (Positive Y) [X:{x}, Y:{y+1}] - {world_map.tile_map.get((x,y+1)).get("Type")} Tile: “{world_map.tile_map.get((x,y+1)).get("Name")}”") 
+                except AttributeError:
+                    print(f"   3. Move North (Positive Y) [X:{x}, Y:{y+1}] - “Obstructed”")
+                    north_tile = "invalid"
+                try: 
+                    print(f"   4. Move South (Negative Y) [X:{x}, Y:{y-1}] - “{world_map.tile_map.get((x,y-1)).get("Name")}”\n")
+                except AttributeError:
+                    print(f"   4. Move South (Negative Y) [X:{x}, Y:{y-1}] - “Obstructed”\n")
+                print("   5. Back to Menu\n\n———————————————————————————————————————————\n")
+                
+                decision = int(input())
             
-        except ValueError:
-            print("Please enter a valid number!\n")
-        else:
-            if decision == 1 and east_tile != "invalid":
-                player_action_taken = True 
-                print(f"\nYou have moved East. [X:{x+1}, Y:{y}] - {world_map.tile_map.get((x+1,y)).get("Type")} Tile: “{world_map.tile_map.get((x+1,y)).get("Name")}”")
-                player_pos = (x+1, y)
-                ExplorationScreen(*player_pos)
-            elif decision == 1 and east_tile == "invalid":
-                print("\nThis tile is obstructed!")
-            elif decision == 2 and west_tile != "invalid":
-                player_action_taken = True
-                print(f"\nYou have moved West. [X:{x-1}, Y:{y}] - {world_map.tile_map.get((x-1,y)).get("Type")} Tile: “{world_map.tile_map.get((x-1,y)).get("Name")}”")
-                player_pos = (x-1, y)
-                ExplorationScreen(*player_pos)
-            elif decision == 2 and west_tile == "invalid":
-                print("\nThis tile is obstructed!")
-            elif decision == 3 and north_tile != "invalid":
-                player_action_taken = True
-                print(f"\nYou have moved North. [X:{x}, Y:{y+1}] - {world_map.tile_map.get((x,y+1)).get("Type")} Tile: “{world_map.tile_map.get((x,y+1)).get("Name")}”")
-                player_pos = (x, y+1)
-                ExplorationScreen(*player_pos)
-            elif decision == 3 and north_tile == "invalid":
-                print("\nThis tile is obstructed!")
-            elif decision == 4 and south_tile != "invalid":
-                player_action_taken = True
-                print(f"\nYou have moved South. [X:{x}, Y:{y-1}] - {world_map.tile_map.get((x,y-1)).get("Type")} Tile: “{world_map.tile_map.get((x,y-1)).get("Name")}")
-                player_pos = (x, y-1)
-                ExplorationScreen(*player_pos)
-            elif decision == 4 and south_tile == "invalid":
-                print("\nThis tile is obstructed!")
-            elif decision == 5:
-                player_action_taken = True
-                ExplorationScreen(*player_pos)
-            else:
+            except ValueError:
                 print("Please enter a valid number!\n")
+            else:
+                # Another standard conditional check system, checks if tile selected is invalid
+                if decision == 1 and east_tile != "invalid":
+                    player_action_taken = True 
+                    print(f"\nYou have moved East. [X:{x+1}, Y:{y}] - {world_map.tile_map.get((x+1,y)).get("Type")} Tile: “{world_map.tile_map.get((x+1,y)).get("Name")}”")
+                    player_pos = (x+1, y)
+                    ExplorationScreen(*player_pos)
+                elif decision == 1 and east_tile == "invalid":
+                    print("\nThis tile is obstructed!")
+                elif decision == 2 and west_tile != "invalid":
+                    player_action_taken = True
+                    print(f"\nYou have moved West. [X:{x-1}, Y:{y}] - {world_map.tile_map.get((x-1,y)).get("Type")} Tile: “{world_map.tile_map.get((x-1,y)).get("Name")}”")
+                    player_pos = (x-1, y)
+                    ExplorationScreen(*player_pos)
+                elif decision == 2 and west_tile == "invalid":
+                    print("\nThis tile is obstructed!")
+                elif decision == 3 and north_tile != "invalid":
+                    player_action_taken = True
+                    print(f"\nYou have moved North. [X:{x}, Y:{y+1}] - {world_map.tile_map.get((x,y+1)).get("Type")} Tile: “{world_map.tile_map.get((x,y+1)).get("Name")}”")
+                    player_pos = (x, y+1)
+                    ExplorationScreen(*player_pos)
+                elif decision == 3 and north_tile == "invalid":
+                    print("\nThis tile is obstructed!")
+                elif decision == 4 and south_tile != "invalid":
+                    player_action_taken = True
+                    print(f"\nYou have moved South. [X:{x}, Y:{y-1}] - {world_map.tile_map.get((x,y-1)).get("Type")} Tile: “{world_map.tile_map.get((x,y-1)).get("Name")}")
+                    player_pos = (x, y-1)
+                    ExplorationScreen(*player_pos)
+                elif decision == 4 and south_tile == "invalid":
+                    print("\nThis tile is obstructed!")
+                elif decision == 5:
+                    player_action_taken = True
+                    ExplorationScreen(*player_pos)
+                else:
+                    print("Please enter a valid number!\n")
 
-
+# Interaction menu to obtain items 
 def Interaction(x,y):
     world_map.tile_map.get((x,y)).update({"Interacted": True})
     print(f"\n“{world_map.tile_map.get((x,y)).get("Interaction Text")}.”\n")
+    # Same system for displaying if the reward is singular or multiple
     if world_map.tile_map.get((x,y)).get("Reward Amount") == 1:
         print(f"You found the {world_map.tile_map.get((x,y)).get("Reward")}.")
         if world_map.tile_map.get((x,y)).get("Reward") in weapon_inventory:
@@ -589,7 +748,7 @@ def Interaction(x,y):
             key_items_inventory[world_map.tile_map.get((x,y)).get("Reward")] += world_map.tile_map.get((x,y)).get("Reward Amount")
         ExplorationScreen(x,y)
 
-
+# Slightly tweaked healing scripts for during an encounter 
 def UseBattleHealing(healing_item):
     global player_max_health
     global player_health
@@ -669,29 +828,64 @@ def BattleHealingMenu():
 def EnemyEncounter(x,y):
     global player_max_health
     global player_health
+    global player_gold
 
     player_damage = weapon_damage_index[equipped_weapon]
     player_damage_reduction = armour_reduction_index[equipped_armour]
     
+ 
+# decides on monster type - gets a random one based on area of encounter
+# It's inefficient, I know - but gets the job done 
+
     if world_map.tile_map.get((x,y)).get("Location") == "Kingdom Outskirts":
-        monster_list = list(monster_index.get(world_map.tile_map.get((x,y)).get("Location")))
+        monster_list = list(monster_index.get("Kingdom Outskirts"))
         monster = random.choice(monster_list)
         monster_max_hp = random.randint(monster_index.get("Kingdom Outskirts").get(monster).get("Min Health"), monster_index.get("Kingdom Outskirts").get(monster).get("Max Health"))
         monster_accuracy = monster_index.get("Kingdom Outskirts").get(monster).get("Accuracy")
         monster_min_damage = monster_index.get("Kingdom Outskirts").get(monster).get("Min Damage")
         monster_max_damage = monster_index.get("Kingdom Outskirts").get(monster).get("Max Damage")
-
-    # elif cave, cliffs, forest, etc.
     
+    elif world_map.tile_map.get((x,y)).get("Location") == "Verdant Forest":
+        monster_list = list(monster_index.get("Verdant Forest"))
+        monster = random.choice(monster_list)
+        monster_max_hp = random.randint(monster_index.get("Verdant Forest").get(monster).get("Min Health"), monster_index.get("Verdant Forest").get(monster).get("Max Health"))
+        monster_accuracy = monster_index.get("Verdant Forest").get(monster).get("Accuracy")
+        monster_min_damage = monster_index.get("Verdant Forest").get(monster).get("Min Damage")
+        monster_max_damage = monster_index.get("Verdant Forest").get(monster).get("Max Damage")
+    
+    elif world_map.tile_map.get((x,y)).get("Location") == "Shimmering Cave":
+        monster_list = list(monster_index.get("Shimmering Cave"))
+        monster = random.choice(monster_list)
+        monster_max_hp = random.randint(monster_index.get("Shimmering Cave").get(monster).get("Min Health"), monster_index.get("Shimmering Cave").get(monster).get("Max Health"))
+        monster_accuracy = monster_index.get("Shimmering Cave").get(monster).get("Accuracy")
+        monster_min_damage = monster_index.get("Shimmering Cave").get(monster).get("Min Damage")
+        monster_max_damage = monster_index.get("Shimmering Cave").get(monster).get("Max Damage")
+
+    elif world_map.tile_map.get((x,y)).get("Location") == "The Desert":
+        monster_list = list(monster_index.get("The Desert"))
+        monster = random.choice(monster_list)
+        monster_max_hp = random.randint(monster_index.get("The Desert").get(monster).get("Min Health"), monster_index.get("The Desert").get(monster).get("Max Health"))
+        monster_accuracy = monster_index.get("The Desert").get(monster).get("Accuracy")
+        monster_min_damage = monster_index.get("The Desert").get(monster).get("Min Damage")
+        monster_max_damage = monster_index.get("The Desert").get(monster).get("Max Damage")
+
+    elif world_map.tile_map.get((x,y)).get("Location") == "Howling Cliffs":
+        monster_list = list(monster_index.get("Howling Cliffs"))
+        monster = random.choice(monster_list)
+        monster_max_hp = random.randint(monster_index.get("Howling Cliffs").get(monster).get("Min Health"), monster_index.get("Howling Cliffs").get(monster).get("Max Health"))
+        monster_accuracy = monster_index.get("Howling Cliffs").get(monster).get("Accuracy")
+        monster_min_damage = monster_index.get("Howling Cliffs").get(monster).get("Min Damage")
+        monster_max_damage = monster_index.get("Howling Cliffs").get(monster).get("Max Damage")
+        
     monster_hp = monster_max_hp
     turn = 1
     print("\n1. Enemy Encounter")
 
-
+    # Main encounter loop
     while monster_hp > 0 and player_health > 0:
         print(f"\nTurn {turn} \n")
 
-        # UI things 
+        # UI healthbar bariables
         monster_health_percent = 100 * float(monster_hp) / float(monster_max_hp)
         monster_ui_bar_index = min(int(monster_health_percent // 10), 10)
 
@@ -712,20 +906,22 @@ def EnemyEncounter(x,y):
                 if decision == 1: # Attack 
                     player_action_taken = True
                     print(f"\nYou attack the {monster} with your {equipped_weapon}! The {monster} takes {player_damage} damage.")
-                    # damage time 
+                    # Damage time 
                     monster_hp -= player_damage
                     
-                elif decision == 2:
+                elif decision == 2: # Healing Menu 
                     player_action_taken = BattleHealingMenu()
                 else:
                     print("Please enter a valid number!\n")
 
 
-        # Enemy Turn 
+        # Enemy Turn - provided it is still alive
         if monster_hp > 0:
+            # Check for hit
             hit_roll = random.randint(1, 100)
             if hit_roll <= monster_accuracy:
                 true_damage = random.randint(monster_min_damage, monster_max_damage)
+                # Apply armour effects
                 damage_taken = max(0, true_damage - player_damage_reduction)
                 print(f"The {monster} attacks you. You take {damage_taken} damage.")
                 player_health -= damage_taken
@@ -739,8 +935,10 @@ def EnemyEncounter(x,y):
     if player_health <= 0:
         EndingSequence("Bad Ending")
     elif monster_hp <= 0:
-        ## finsih this later 
-        print("\nBattle-Win")
+        # Grants gold to the player based on the difficulty of the monster encounter
+        gold_gained = int((monster_max_hp * 0.5) + (monster_min_damage + monster_max_damage) / 2 + (monster_accuracy / 10))
+        player_gold += gold_gained
+        print(f"\n\nYou have slain the {monster}. You have gained {gold_gained} Gold. Your new total is {player_gold} Gold.\n\n———————————————————————————————————————————\n")
         world_map.tile_map.get((x,y)).update({"Battle Complete": True})
         ExplorationScreen(x,y)
 
