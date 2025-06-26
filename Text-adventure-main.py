@@ -1,27 +1,46 @@
 import world_map
 import random
 
-
-player_pos = 16, 32
-player_max_health = 100
+# main player values 
+player_pos = 16, 32 # handles the position on the map in (x,y)
+player_max_health = 100 #
 player_health = 100
 player_gold = 10
-
-player_alive = True
 
 # Start and ending sequences for the game 
 def StartSequence():
     global player_name
-    player_name = input("What is your name?\n\n").title()
+    print("Foreword: \n\nWelcome to my silly little project! No data fromt his program is stored anywhere, and it is not malicious.\nFor more info and help with the RPG, such as a provided map, please refer to the README that should have came with this script.\nThis script also depends on the 'world_map.py' script which also should have came with this file. \nIf you're missing either of these files, this script may be compromised and I advise you to proceed at your own risk.\n")
+    
+    print("The goal of your quest is to travel through the map and slay the Elder Dragon.\n")
+
+    player_name = input("Adventurer, what is your name?\n\n").title()
+    # Unpacks the tuple, so the code can actually run
     ExplorationScreen(*player_pos)
 
+
+
+
 def EndingSequence(Ending):
-    print(Ending)
+    global player_name
+    if Ending == "Bad Ending":
+        print(f"\n“Sadly, {player_name} takes a lethal blow to the head in battle. Better luck next time...”\n\nThank you for playing my game !! <3\n- Alex")
+        print("Quitting script..\n")
+        quit()
+    elif Ending == "Bad Boss Ending":
+        print(f"\n“{player_name}, don't lose hope! Stay determined! Better luck next time...”\n\nThank you for playing my game !! <3\n- Alex\n")
+        print("Quitting script..\n")
+        quit()
+    elif Ending == "Good Ending":
+        print(f"\n“{player_name} has successfully slain the Elder Dragon and completed their quest. Great Job!”\n\nThank you for playing my game !! <3\n- Alex\n")
+        print("Quitting script..\n")
+        quit()
+    
 
 
 
-# inventory indexes 
 
+# inventory indexes for the player - value is how many in inventory, the comments beside them are what area these items are related to.
 weapon_inventory = {
     "Training Sword": 1,   # Kingdom Outskirts
     "Thornblade": 1,   # Verdant Forest
@@ -31,25 +50,25 @@ weapon_inventory = {
 }
 
 healing_inventory = {
-    "Pocket Spell Jar": 0,   # Kingdom Outskirts
-    "Elixir": 0,   # Verdant Forest
-    "Shimmering Potion": 0,   # Shimmering Cave
-    "Tarnished Locket": 0,   # The Desert
-    "Lightning Brew": 0,   # Howling Cliffs
+    "Pocket Spell Jar": 1,   # Kingdom Outskirts
+    "Elixir": 2,   # Verdant Forest
+    "Shimmering Potion": 3,   # Shimmering Cave
+    "Tarnished Locket": 1,   # The Desert
+    "Lightning Brew": 2,   # Howling Cliffs
 }
 armour_inventory = {
     "Leather Armour": 0,    # Kingdom Outskirts
     "Chainmail": 0,   # Verdant Forest
     "Unusual Cloak": 0,   # Shimmering Cave
     "Sandstorm Gear": 0,   # The Desert
-    "Cult Robes": 0,   # Howling Cliffs
+    "Cult Robes": 1,   # Howling Cliffs
 }
 key_items_inventory = {
     "Sacred Sigil Of Flame": 0,   # The Desert
     "Ancient Key": 0,   # Howling Cliffs 
 }
 
-# description indexes  
+# description indexes - these appear when 'checking' the item in the bag menu. 
 
 weapon_description_index = {
     "Training Sword": "A basic training sword. There were hundreds of these things lying around your hometown. Enough to protect yourself, but not much else.",
@@ -83,7 +102,7 @@ key_item_description_index = {
 }
 
 
-# Value indexes
+# Value indexes for statistics actually used in the game - pretty straightforward.
 
 weapon_damage_index = {
     "Training Sword": 5,   # Kingdom Outskirts
@@ -110,7 +129,7 @@ armour_reduction_index = {
 }
 
 
-# Price index
+# Price index for purchasing items - if it was within the scope selling could be possible using these indexes too.
 
 weapon_price_index = {
     "Training Sword": 10,  
@@ -139,11 +158,12 @@ armour_price_index = {
 equipped_weapon = "Training Sword"
 equipped_armour = "Leather Armour"
 
-# Battle System dictionaries 
+# Battle System dictionaries
 
+# A list for the various states of the enemy/player healthbars for visual clarity.
 healthbar_ui = ["[          ]","[-         ]","[--        ]","[---       ]","[----      ]","[-----     ]","[------    ]","[-------   ]","[--------  ]","[--------- ]", "[----------]"]
 
-
+# The index of which monsters can be encountered, each with their own stats. These are based on area of the game.
 monster_index = {
     "Kingdom Outskirts": {
         "Bandit": {
@@ -265,7 +285,7 @@ monster_index = {
 }
 
 
-#functions that actually do stuff!!! :0
+#Functions below this point are used for the core game 
 
 
 # Equips weapon/armour
@@ -300,15 +320,14 @@ def UseHealing(healing_item):
         print(f"\nThe {healing_item} healed you to full health. Your health is now {player_health}. (Healed {(healing_amount_index.get(healing_item) + difference)} health)\n\n———————————————————————————————————————————\n")
         healing_inventory[healing_item] -= 1
         HealingMenu()
-    # Otherwise, just add health back to the player
+    # Otherwise, just simply add health back to the player
     else:
         player_health += healing_amount_index.get(healing_item)
         print(f"\nYou used the {healing_item}. Your health is now {player_health}. (Healed {healing_amount_index.get(healing_item)} health)\n\n———————————————————————————————————————————\n")
         healing_inventory[healing_item] -= 1
     
 
-# Check Items - logic for equipping to be handled in a different function
-
+# Check Items to display descriptions on them. Also used as a link to equip/use items in the above menu. 
 def CheckWeapon(weapon):
     player_action_taken = False
     while player_action_taken == False:
@@ -320,10 +339,12 @@ def CheckWeapon(weapon):
             print("Please enter a valid number!\n")
         else:
             if decision == 1:
+                # Runs the equip process, then returns to main weapons list 
                 player_action_taken = True
                 EquipWeapon(weapon)
                 WeaponsMenu()
             elif decision == 2:
+                # Just returns to main weapons list 
                 player_action_taken = True
                 WeaponsMenu()
             else:
@@ -331,7 +352,7 @@ def CheckWeapon(weapon):
                 
 
 
-
+# Exactly the same as above funtion, for healing
 def CheckHealing(healing_item):
     player_action_taken = False
     while player_action_taken == False:
@@ -352,7 +373,8 @@ def CheckHealing(healing_item):
             else:
                 print("Please enter a valid number!\n")
             
-            
+
+# Exactly the same as above function, for armour
 def CheckArmour(armour):
     player_action_taken = False
     while player_action_taken == False:
@@ -394,9 +416,9 @@ def CheckKeyItem(key_item):
 
 
 
-# Situatonal Shop Menu 
-
+# Situatonal Shop Menu for when the player is on a shop tile
 def ShopMenu(x,y):
+    # Uses global variables to manipulate the player inventory and gold amount
     global player_gold
     global weapon_inventory
     global healing_inventory
@@ -438,31 +460,39 @@ def ShopMenu(x,y):
                         if item in weapon_price_index:
                             # Check if player has enough gold 
                             if player_gold - weapon_price_index[item] < 0:
+                                # The player does not have enough gold, so it returns to the menu
                                 player_action_taken = True
                                 print(f"You do not have enough money! This item costs {weapon_price_index.get(item)} Gold but you only have {player_gold} Gold!\n")
                                 ShopMenu(x,y)
+                            # Else, they do have enough gold, subtract the cost of the item and add one copy of the item to inventory
                             else:
                                 player_action_taken = True
                                 player_gold -= weapon_price_index.get(item)
                                 weapon_inventory[item] += 1
                                 print(f"You have purchased the {item}, which cost {weapon_price_index.get(item)} Gold. Your new balance is {player_gold} Gold.\n")
                                 ShopMenu(x,y)
+                        # Check if player has enough gold 
                         elif item in healing_price_index:
+                            # The player does not have enough gold, so it returns to the menu
                             if player_gold - healing_price_index[item] < 0:
                                 player_action_taken = True
                                 print(f"You do not have enough money! This item costs {healing_price_index.get(item)} Gold but you only have {player_gold} Gold!\n")
                                 ShopMenu(x,y)
+                            # Else, they do have enough gold, subtract the cost of the item and add one copy of the item to inventory
                             else:
                                 player_action_taken = True
                                 player_gold -= healing_price_index.get(item)
                                 healing_inventory[item] += 1
                                 print(f"You have purchased the {item}, which cost {healing_price_index.get(item)} Gold. Your new balance is {player_gold} Gold.\n")
                                 ShopMenu(x,y)
+                        # Check if player has enough gold 
                         elif item in armour_price_index:
+                            # The player does not have enough gold, so it returns to the menu
                             if player_gold - armour_price_index[item] < 0:
                                 player_action_taken = True
                                 print(f"You do not have enough money! This item costs {armour_price_index.get(item)} Gold but you only have {player_gold} Gold!\n")
                                 ShopMenu(x,y)
+                            # Else, they do have enough gold, subtract the cost of the item and add one copy of the item to inventory
                             else:
                                 player_action_taken = True
                                 player_gold -= armour_price_index.get(item)
@@ -470,8 +500,7 @@ def ShopMenu(x,y):
                                 print(f"You have purchased the {item}, which cost {armour_price_index.get(item)} Gold. Your new balance is {player_gold} Gold.\n")
                                 ShopMenu(x,y)
 
-# Core Menus inside Bag menu
-
+# Core Menus inside of Bag menu - leading to the deeper listed functions
 def WeaponsMenu():
     decision = 0
     player_action_taken = False
@@ -512,8 +541,7 @@ def WeaponsMenu():
                             player_action_taken = True
                             CheckWeapon(weapon)
                             
-# Identical to weapons menu
-
+#Identical to to previous menu, but for healing 
 def HealingMenu():
     decision = 0 
     player_action_taken = False
@@ -551,8 +579,7 @@ def HealingMenu():
 
 
 
-# Identical to weapons menu     
-
+# Identical to to previous menu, but for armour
 def ArmourMenu():
     decision = 0
     player_action_taken = False
@@ -590,8 +617,7 @@ def ArmourMenu():
 
 
 
-# Identical to weapons menu
-
+# Identical to previous menu, but for key items
 def KeyItemsMenu():
     decision = 0
     player_action_taken = False
@@ -628,7 +654,6 @@ def BagMenu():
     decision = 0
     player_action_taken = False
     while player_action_taken == False:
-
         try:
             print("\n3. Bag Menu\n\nWhich pocket would you like to inspect?\n\n   1. Weaponry\n   2. Medicine\n   3. Armour\n   4. Key Items\n\n   5. Back to Menu\n\n———————————————————————————————————————————\n")
             decision = int(input())
@@ -748,6 +773,7 @@ def MovementMenu(x,y):
 
 # Interaction menu to obtain items 
 def Interaction(x,y):
+    # Displays a different message if reward is already obtained, so the player cannot get infinite items
     if world_map.tile_map.get((x,y)).get("Reward Obtained") == True:
         print("Reward has already been obtained!\n\n———————————————————————————————————————————\n")
         ExplorationScreen(x,y)
@@ -811,7 +837,7 @@ def CheckBattleHealing(healing_item):
         else:
             if decision == 1:
                 player_action_taken = True
-                return UseBattleHealing(healing_item) # Boolean
+                return UseBattleHealing(healing_item) # Boolean variable 
 
             elif decision == 2:
                 player_action_taken = True
@@ -855,7 +881,7 @@ def BattleHealingMenu():
                 for healing_item in available_healing_list:
                     if decision == (available_healing_list.index(healing_item)+ 1):
                         player_action_taken = True 
-                        return CheckBattleHealing(healing_item)
+                        return CheckBattleHealing(healing_item) # True/false boolean
 
 
 #Encounter System used on Battle tiles - could certainly be more efficient.
@@ -967,6 +993,7 @@ def EnemyEncounter(x,y):
     # Post-Battle calculations 
 
     if player_health <= 0:
+        print(f"{player_name} was defeated...")
         EndingSequence("Bad Ending")
     elif monster_hp <= 0:
         # Grants gold to the player based on the difficulty of the monster encounter
@@ -979,6 +1006,7 @@ def EnemyEncounter(x,y):
 def BossBattle():
     global player_max_health
     global player_health
+    global player_name
     
     monster_list = list(monster_index.get("The Peak"))
     monster = random.choice(monster_list)
@@ -994,122 +1022,139 @@ def BossBattle():
     turn = 1
     print(f"\nBoss Encounter - {monster}")
 
-    # UI healthbar bariables
-    monster_health_percent = 100 * float(monster_hp) / float(monster_max_hp)
-    monster_ui_bar_index = min(int(monster_health_percent // 10), 10)
+    while monster_hp > 0 and player_health > 0:
+        print(f"\nTurn {turn} \n")
+        # UI healthbar variables
+        monster_health_percent = 100 * float(monster_hp) / float(monster_max_hp)
+        monster_ui_bar_index = min(int(monster_health_percent // 10), 10)
+        player_health_percent = 100 * float(player_health) / float(player_max_health)
+        player_ui_bar_index = min(int(player_health_percent // 10), 10)
 
-    player_health_percent = 100 * float(player_health) / float(player_max_health)
-    player_ui_bar_index = min(int(player_health_percent // 10), 10)
-
-    decision = 0
-    player_action_taken = False
-    while player_action_taken == False:
-        try:
-            print(f"\n{monster}: {healthbar_ui[monster_ui_bar_index]} {round(monster_hp, 2)}/{round(monster_max_hp, 2)} HP\n\n{player_name}: {healthbar_ui[player_ui_bar_index]} {round(player_health, 2)}/{round(player_max_health, 2)} HP\n")
-            print("Battle Options:\n")
-            print(f"   1. Attack ({equipped_weapon})\n   2. Healing\n\n———————————————————————————————————————————\n")
-            decision = int(input())
-        except ValueError:
-            print("Please enter a valid number!\n")
-        else:
-            if decision == 1: # Attack 
-                player_action_taken = True
-                print(f"\nYou attack the {monster} with your {equipped_weapon}! The {monster} takes {player_damage} damage.")
-                # Damage time 
-                monster_hp -= player_damage
-                
-            elif decision == 2: # Healing Menu 
-                player_action_taken = BattleHealingMenu()
-            else:
+        decision = 0
+        player_action_taken = False
+        while player_action_taken == False:
+            try:
+                print(f"\n{monster}: {healthbar_ui[monster_ui_bar_index]} {round(monster_hp, 2)}/{round(monster_max_hp, 2)} HP\n\n{player_name}: {healthbar_ui[player_ui_bar_index]} {round(player_health, 2)}/{round(player_max_health, 2)} HP\n")
+                print("Battle Options:\n")
+                print(f"   1. Attack ({equipped_weapon})\n   2. Healing\n\n———————————————————————————————————————————\n")
+                decision = int(input())
+            except ValueError:
                 print("Please enter a valid number!\n")
+            else:
+                if decision == 1: # Attack 
+                    player_action_taken = True
+                    print(f"\nYou attack the {monster} with your {equipped_weapon}! The {monster} takes {player_damage} damage.")
+                    # Damage time 
+                    monster_hp -= player_damage
+                    
+                elif decision == 2: # Healing Menu 
+                    player_action_taken = BattleHealingMenu()
+                else:
+                    print("Please enter a valid number!\n")
 
-        # Enemy Turn - provided it is still alive
-        if monster_hp > 0:
-            # Check for hit
-            hit_roll = random.randint(1, 100)
-            if hit_roll <= monster_accuracy:
-                true_damage = random.randint(monster_min_damage, monster_max_damage)
-                # Apply armour effects
-                damage_taken = max(0, true_damage - player_damage_reduction)
-                print(f"The {monster} attacks you. You take {damage_taken} damage.")
-                player_health -= damage_taken
-            else: 
-                print(f"The {monster} attacks but misses!")
-            
-        turn += 1
+            # Enemy Turn - provided it is still alive
+            if monster_hp > 0:
+                # Check for hit
+                hit_roll = random.randint(1, 100)
+                if hit_roll <= monster_accuracy:
+                    true_damage = random.randint(monster_min_damage, monster_max_damage)
+                    # Apply armour effects
+                    damage_taken = max(0, true_damage - player_damage_reduction)
+                    print(f"The {monster} attacks you. You take {damage_taken} damage.")
+                    player_health -= damage_taken
+                # Otherwise, do not do damage to the player
+                else: 
+                    print(f"The {monster} attacks but misses!")
+            # Increase turn number - this could easily be used for something, but it is just used for the turn display here
+            turn += 1
+    
     # Post-Battle calculations 
     if player_health <= 0:
+        print(f"{player_name} was defeated...")
         EndingSequence("Bad Boss Ending")
     elif monster_hp <= 0:
+        print(f"The {monster} has been slain!")
         EndingSequence("Good Ending")
 
+# Function used for unlocking the two locked tiles present in the game
 def UnlockGate(x,y):
+    # Checks through the key items to see if the player can unlock the door
     for key_item in key_items_inventory:
         if key_item == world_map.tile_map.get((x,y)).get("Unlock Item") and key_items_inventory.get(key_item) > 0:
             print(f"\nGate unlocked! The {key_item} has been removed from your inventory.\n\n———————————————————————————————————————————\n")
             world_map.tile_map.get((x,y)).update({"Unlocked": True})
             key_items_inventory[key_item] -= 1
+    # If the door's still not unlocked after going through all of the key items present in the inventory, end the function with a message communicating this to the player.
     if world_map.tile_map.get((x,y)).get("Unlocked") == False:
         print("\nYou do not have the required item to unlock this gate!\n\n———————————————————————————————————————————\n")
     ExplorationScreen(x,y)
 
-
+# THIS is the main menu of the game, which every function stems from. 
 def ExplorationScreen(x,y):
     decision = 0
     player_action_taken = False
     while player_action_taken == False:
         try:
+            # Displays slightly different menus based on tile type - option 1 can either be 'No Option Available', 'Shop', 'Battle', or 'Interact'
             if world_map.tile_map.get((x,y)).get("Type") == "Plain":
-                print(f"\n{player_name} {player_health}/{player_max_health}HP {player_gold} Gold [X:{x}, Y:{y}] - {world_map.tile_map.get((x,y)).get("Name")}, {world_map.tile_map.get((x,y)).get("Location")}\n\n“{world_map.tile_map.get((x,y)).get("Description")}”\n\nWhat would you like to do?\n\n    1. No Option Availiable\n    2. Movement\n    3. Bag\n\n———————————————————————————————————————————\n")
+                print(f"\n{player_name} {player_health}/{player_max_health}HP {player_gold} Gold [X:{x}, Y:{y}] - {world_map.tile_map.get((x,y)).get("Name")}, {world_map.tile_map.get((x,y)).get("Location")}\n\n“{world_map.tile_map.get((x,y)).get("Description")}”\n\nWhat would you like to do?\n\n    1. No Option Available\n    2. Movement\n    3. Bag\n\n———————————————————————————————————————————\n")
+            # Battle tile display (depending on whether said battle tile is already completed) - Displays 'Battle' or 'Battle (Completed)'
             elif world_map.tile_map.get((x,y)).get("Type") == "Battle":
                 if world_map.tile_map.get((x,y)).get("Battle Complete") == True:
                     print(f"\n{player_name} {player_health}/{player_max_health}HP {player_gold} Gold [X:{x}, Y:{y}] - {world_map.tile_map.get((x,y)).get("Name")}, {world_map.tile_map.get((x,y)).get("Location")}\n\n“{world_map.tile_map.get((x,y)).get("Description")}”\n\nWhat would you like to do?\n\n    1. {world_map.tile_map.get((x,y)).get("Type")} (Completed)\n    2. Movement\n    3. Bag\n\n———————————————————————————————————————————\n")
                 else:
                     print(f"\n{player_name} {player_health}/{player_max_health}HP {player_gold} Gold [X:{x}, Y:{y}] - {world_map.tile_map.get((x,y)).get("Name")}, {world_map.tile_map.get((x,y)).get("Location")}\n\n“{world_map.tile_map.get((x,y)).get("Description")}”\n\nWhat would you like to do?\n\n    1. {world_map.tile_map.get((x,y)).get("Type")}\n    2. Movement\n    3. Bag\n\n———————————————————————————————————————————\n")
+            # Battle tile display (depending on whether said gate tile is open) - Displays 'Unlock Gate' or 'No Option Available (Gate Unlocked)'
             elif world_map.tile_map.get((x,y)).get("Type") == "Gate":
                 if world_map.tile_map.get((x,y)).get("Unlocked") == False:
                     print(f"\n{player_name} {player_health}/{player_max_health}HP {player_gold} Gold [X:{x}, Y:{y}] - {world_map.tile_map.get((x,y)).get("Name")}, {world_map.tile_map.get((x,y)).get("Location")}\n\n“{world_map.tile_map.get((x,y)).get("Description")}”\n\nWhat would you like to do?\n\n    1. Unlock Gate\n    2. Movement\n    3. Bag\n\n———————————————————————————————————————————\n")
                 else:
-                    print(f"\n{player_name} {player_health}/{player_max_health}HP {player_gold} Gold [X:{x}, Y:{y}] - {world_map.tile_map.get((x,y)).get("Name")}, {world_map.tile_map.get((x,y)).get("Location")}\n\n“{world_map.tile_map.get((x,y)).get("Description")}”\n\nWhat would you like to do?\n\n    1. No Option Availiable (Gate Unlocked)\n    2. Movement\n    3. Bag\n\n———————————————————————————————————————————\n")
+                    print(f"\n{player_name} {player_health}/{player_max_health}HP {player_gold} Gold [X:{x}, Y:{y}] - {world_map.tile_map.get((x,y)).get("Name")}, {world_map.tile_map.get((x,y)).get("Location")}\n\n“{world_map.tile_map.get((x,y)).get("Description")}”\n\nWhat would you like to do?\n\n    1. No Option Available (Gate Unlocked)\n    2. Movement\n    3. Bag\n\n———————————————————————————————————————————\n")
+            # Otherwise, just display the name of the tile
             else:
                 print(f"\n{player_name} {player_health}/{player_max_health}HP {player_gold} Gold [X:{x}, Y:{y}] - {world_map.tile_map.get((x,y)).get("Name")}, {world_map.tile_map.get((x,y)).get("Location")}\n\n“{world_map.tile_map.get((x,y)).get("Description")}”\n\nWhat would you like to do?\n\n    1. {world_map.tile_map.get((x,y)).get("Type")}\n    2. Movement\n    3. Bag\n\n———————————————————————————————————————————\n")
             decision = int(input())
+        # If the player enters a non-integer, handle the ValueError
         except ValueError:
             print("\nPlease enter a valid number!\n")
         else:
-            if decision == 1 and world_map.tile_map.get((x,y)).get("Type") == "Gate":
+            if decision == 1 and world_map.tile_map.get((x,y)).get("Type") == "Gate": # Gate Unlock
                 if world_map.tile_map.get((x,y)).get("Unlocked") == False:
                     player_action_taken = True
                     UnlockGate(x,y)
                 else: 
                     print("\nPlease enter a valid number!\n")
-            elif decision == 1 and world_map.tile_map.get((x,y)).get("Type") == "Interact":
+            elif decision == 1 and world_map.tile_map.get((x,y)).get("Type") == "Interact": # Obtain item
                 player_action_taken = True
                 Interaction(x,y)
-            elif decision == 1 and world_map.tile_map.get((x,y)).get("Type") == "Battle":
+            elif decision == 1 and world_map.tile_map.get((x,y)).get("Type") == "Battle": 
+                # Enemy encounter if the battle is not completed
                 if world_map.tile_map.get((x,y)).get("Battle Complete") == True:
                     print("\nYou have already completed this battle!\n")
                 if world_map.tile_map.get((x,y)).get("Battle Complete") == False:
                     player_action_taken = True
                     EnemyEncounter(x,y)
-            elif decision == 1 and world_map.tile_map.get((x,y)).get("Type") == "Shop":
+            elif decision == 1 and world_map.tile_map.get((x,y)).get("Type") == "Shop": # Shop Menu
                 player_action_taken = True
                 ShopMenu(x,y)
-            elif decision == 1 and world_map.tile_map.get((x,y)).get("Type") == "Boss":
+            elif decision == 1 and world_map.tile_map.get((x,y)).get("Type") == "Boss": # Boss battle (Game End)
                 player_action_taken = True
                 BossBattle()
-            elif decision == 1 and world_map.tile_map.get((x,y)).get("Type") == "Plain":
+            elif decision == 1 and world_map.tile_map.get((x,y)).get("Type") == "Plain": # No input on plain tiles
                 print("\nPlease enter a valid number!\n")
-            elif decision == 2:
+            elif decision == 2: # Movement Menu
                 player_action_taken = True
                 MovementMenu(x,y)
-                
-            elif decision == 3:
+            elif decision == 3: # Bag Menu
                 player_action_taken = True
                 BagMenu()
-                
-            else:
+            # if the number is not 1, 2, or 3, handle the else
+            else: 
                 print("\nPlease enter a valid number!\n")
+
+
+
+
 
 # it all runs from calling one beautiful function :3
 StartSequence()
