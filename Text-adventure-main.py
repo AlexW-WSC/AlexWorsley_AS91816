@@ -2,7 +2,7 @@ import world_map
 import random
 
 # main player values 
-player_pos = 16, 32 # handles the position on the map in (x,y)
+player_pos = 16, 2 # handles the position on the map in (x,y)
 player_max_health = 100 #
 player_health = 100
 player_gold = 10
@@ -10,15 +10,13 @@ player_gold = 10
 # Start and ending sequences for the game 
 def StartSequence():
     global player_name
-    print("Foreword: \n\nWelcome to my silly little project! No data fromt his program is stored anywhere, and it is not malicious.\nFor more info and help with the RPG, such as a provided map, please refer to the README that should have came with this script.\nThis script also depends on the 'world_map.py' script which also should have came with this file. \nIf you're missing either of these files, this script may be compromised and I advise you to proceed at your own risk.\n")
+    print("Foreword: \n\nWelcome to my silly little project! No data fromt his program is stored anywhere, and it is not malicious.\nFor more info and help with the RPG, such as a provided map, please refer to the README that should have came with this script.\nThis script also depends on the 'world_map.py' script which also should have came with this file. \nIf you're missing either of these files, this distribution may be compromised and I advise you to proceed at your own risk.\n")
     
     print("The goal of your quest is to travel through the map and slay the Elder Dragon.\n")
 
     player_name = input("Adventurer, what is your name?\n\n").title()
     # Unpacks the tuple, so the code can actually run
     ExplorationScreen(*player_pos)
-
-
 
 
 def EndingSequence(Ending):
@@ -42,26 +40,26 @@ def EndingSequence(Ending):
 
 # inventory indexes for the player - value is how many in inventory, the comments beside them are what area these items are related to.
 weapon_inventory = {
-    "Training Sword": 1,   # Kingdom Outskirts
-    "Thornblade": 1,   # Verdant Forest
-    "Crystal Dagger": 1,   # Shimmering Cave
-    "Shard Of Glass": 1,   # The Desert
-    "Twin Daggers": 1,   # Howling Cliffs
+    "Training Sword": 0,   # Kingdom Outskirts
+    "Thornblade": 0,   # Verdant Forest
+    "Crystal Dagger": 0,   # Shimmering Cave
+    "Shard Of Glass": 0,   # The Desert
+    "Twin Daggers": 0,   # Howling Cliffs
 }
 
 healing_inventory = {
-    "Pocket Spell Jar": 1,   # Kingdom Outskirts
-    "Elixir": 2,   # Verdant Forest
-    "Shimmering Potion": 3,   # Shimmering Cave
-    "Tarnished Locket": 1,   # The Desert
-    "Lightning Brew": 2,   # Howling Cliffs
+    "Pocket Spell Jar": 0,   # Kingdom Outskirts
+    "Elixir": 0,   # Verdant Forest
+    "Shimmering Potion": 0,   # Shimmering Cave
+    "Tarnished Locket": 0,   # The Desert
+    "Lightning Brew": 0,   # Howling Cliffs
 }
 armour_inventory = {
     "Leather Armour": 0,    # Kingdom Outskirts
     "Chainmail": 0,   # Verdant Forest
     "Unusual Cloak": 0,   # Shimmering Cave
     "Sandstorm Gear": 0,   # The Desert
-    "Cult Robes": 1,   # Howling Cliffs
+    "Cult Robes": 0,   # Howling Cliffs
 }
 key_items_inventory = {
     "Sacred Sigil Of Flame": 0,   # The Desert

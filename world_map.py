@@ -163,37 +163,37 @@ tile_map = {
 
     (16, 4): {
         "Location": "Kingdom Outskirts",
-        "Name": "Grassland B",
-        "Description":"aaaaaaa",
+        "Name": "Meadow-way Route",
+        "Description":"A dirt path leading up to a vast forest.",
         "Type": "Plain",
     },
 
     (16, 5): {
         "Location": "Kingdom Outskirts",
-        "Name": "Grassland B",
-        "Description":"aaaaaaa",
+        "Name": "Meadow-way Route",
+        "Description":"A dirt path leading up to a vast forest.",
         "Type": "Plain",
     },
 
     (16, 6): {
         "Location": "Kingdom Outskirts",
-        "Name": "Grassland B",
-        "Description":"aaaaaaa",
+        "Name": "Meadow-way Route",
+        "Description":"A dirt path leading up to a vast forest. A small monster is standing in front of you.",
         "Type": "Battle",
         "Battle Complete": False,
     },
 
     (16, 7): {
         "Location": "Kingdom Outskirts",
-        "Name": "Grassland B",
-        "Description":"aaaaaaa",
+        "Name": "Meadow-way Route",
+        "Description":"A dirt path leading up to a vast forest.",
         "Type": "Plain",
     },
 
     (16, 8): {
         "Location": "Kingdom Outskirts",
-        "Name": "Grassland B",
-        "Description":"aaaaaaa",
+        "Name": "Meadow-way Route",
+        "Description":"A dirt path leading up to a vast forest.",
         "Type": "Plain",
     },
 
@@ -228,7 +228,7 @@ tile_map = {
 
     (16, 9): {
         "Location": "Kingdom Outskirts",
-        "Name": "Grassland B",
+        "Name": "Meadow-way Route",
         "Description":"aaaaaaa",
         "Type": "Plain",
     },
@@ -256,7 +256,7 @@ tile_map = {
 
     (16, 10): {
         "Location": "Kingdom Outskirts",
-        "Name": "Grassland B",
+        "Name": "Meadow-way Route",
         "Description":"aaaaaaa",
         "Type": "Battle",
         "Battle Complete": False,
