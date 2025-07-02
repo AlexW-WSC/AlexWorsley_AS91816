@@ -19,6 +19,8 @@ def StartSequence():
     ExplorationScreen(*player_pos)
 
 
+
+
 def EndingSequence(Ending):
     global player_name
     if Ending == "Bad Ending":
@@ -44,14 +46,14 @@ weapon_inventory = {
     "Thornblade": 0,   # Verdant Forest
     "Crystal Dagger": 0,   # Shimmering Cave
     "Shard Of Glass": 0,   # The Desert
-    "Twin Daggers": 0,   # Howling Cliffs
+    "Twin Daggers": 1,   # Howling Cliffs
 }
 
 healing_inventory = {
     "Pocket Spell Jar": 0,   # Kingdom Outskirts
     "Elixir": 0,   # Verdant Forest
     "Shimmering Potion": 0,   # Shimmering Cave
-    "Tarnished Locket": 0,   # The Desert
+    "Tarnished Locket": 3,   # The Desert
     "Lightning Brew": 0,   # Howling Cliffs
 }
 armour_inventory = {
@@ -59,7 +61,7 @@ armour_inventory = {
     "Chainmail": 0,   # Verdant Forest
     "Unusual Cloak": 0,   # Shimmering Cave
     "Sandstorm Gear": 0,   # The Desert
-    "Cult Robes": 0,   # Howling Cliffs
+    "Cult Robes": 1,   # Howling Cliffs
 }
 key_items_inventory = {
     "Sacred Sigil Of Flame": 0,   # The Desert
@@ -530,8 +532,8 @@ def WeaponsMenu():
                 if decision == i:
                     player_action_taken = True
                     BagMenu()
-                # Bounary case for a number outside of the list
-                elif decision > len(weapon_list):
+                # Boundary case for a number outside of the list
+                elif decision > len(available_weapon_list) + 1 or decision < 0:
                     print("Please enter a valid number!\n")
                 else:
                     for weapon in available_weapon_list:
@@ -567,7 +569,7 @@ def HealingMenu():
             if decision == i:
                 player_action_taken = True
                 BagMenu()
-            elif decision > len(healing_list):
+            elif decision > len(available_healing_list) + 1 or decision < 0:
                 print("Please enter a valid number!\n")
             else:
                 for healing_item in available_healing_list:
@@ -605,7 +607,7 @@ def ArmourMenu():
             if decision == i:
                 player_action_taken = True
                 BagMenu()
-            elif decision > len(armour_list):
+            elif decision > len(available_armour_list) + 1 or decision < 0:
                 print("Please enter a valid number!\n")
             else:
                 for armour in available_armour_list:
@@ -776,7 +778,7 @@ def Interaction(x,y):
         print("Reward has already been obtained!\n\n———————————————————————————————————————————\n")
         ExplorationScreen(x,y)
     elif world_map.tile_map.get((x,y)).get("Reward Obtained") == False:
-        print(f"\n“{world_map.tile_map.get((x,y)).get("Interaction Text")}.”\n")
+        print(f"\n“{world_map.tile_map.get((x,y)).get("Interaction Text")}”\n")
     # Same system for displaying if the reward is singular or multiple
         world_map.tile_map.get((x,y)).update({"Reward Obtained": True})
         if world_map.tile_map.get((x,y)).get("Reward Amount") == 1:
@@ -864,6 +866,7 @@ def BattleHealingMenu():
                     available_healing_list.append(healing_item)
                     i += 1
             print(f"\n   {i}. Back to Battle Encounter\n\n———————————————————————————————————————————\n")
+            print(available_healing_list)
             decision = int(input())
         except ValueError:
             print("Please enter a valid number!\n")
@@ -871,14 +874,12 @@ def BattleHealingMenu():
             if decision == i:
                 player_action_taken = True
                 return False
-            elif decision > len(healing_list):
-                print("Please enter a valid number!\n")
-            elif healing_amount_list[decision - 1] == 0:
+            elif decision > len(available_healing_list) + 1 or decision < 1:
                 print("Please enter a valid number!\n")
             else:
                 for healing_item in available_healing_list:
                     if decision == (available_healing_list.index(healing_item)+ 1):
-                        player_action_taken = True 
+                        player_action_taken = True
                         return CheckBattleHealing(healing_item) # True/false boolean
 
 
